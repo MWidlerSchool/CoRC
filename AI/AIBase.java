@@ -8,10 +8,10 @@ import GUI.MessagePanel;
 
 public class AIBase
 {
-    private Actor self;
-    private Action pendingAction;
-	private Coord pendingCoord;
-	private int pendingIndex;
+    protected Actor self;
+    protected Action pendingAction;
+	protected Coord pendingCoord;
+	protected int pendingIndex;
 
 
 	public Action getPendingAction(){return pendingAction;}
@@ -69,11 +69,13 @@ public class AIBase
         clear();
     }
     
+    // wait for the fastest speed the actor has
     public void delay()
     {
-        step(self.getLoc());
-        //self.dischargeMove(); // already delayed in step
-        MessagePanel.add(self.toString() + " passes their turn.");
+        if(self.getStatBlock().getMoveSpeed() < self.getStatBlock().getActionSpeed())
+            self.dischargeMove();
+        else
+            self.dischargeAction();
     }
     
     public void step(Coord target)

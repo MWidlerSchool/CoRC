@@ -11,9 +11,6 @@ public class InitManager implements Runnable
     
     public Vector<InitObj> getInitList(){return initList;}
     
-    public void add(InitObj io){if(initList.contains(io) == false) initList.add(io);}
-    public void remove(InitObj io){initList.remove(io);}
-    
     public InitManager()
     {
         initList = new Vector<InitObj>();
@@ -33,7 +30,7 @@ public class InitManager implements Runnable
     {
         while(keepRunning)
         {
-            if(initList.size() == 0)
+            if(initList.size() == 0 || GameObj.masterHold())
                 continue;
             
             InitObj curObj = initList.elementAt(initIndex);
@@ -53,6 +50,30 @@ public class InitManager implements Runnable
                 initIndex++;
                 if(initIndex >= initList.size())
                     initIndex = 0;
+            }
+        }
+    }
+    
+
+    
+    public void add(InitObj obj)
+    {
+        initList.add(obj);
+    }
+    
+    public void remove(InitObj obj)
+    {
+        for(int i = 0; i < initList.size(); i++)
+        {
+            if(initList.elementAt(i) == obj)
+            {
+                boolean underIndex = i <= initIndex;
+                initList.removeElementAt(i);
+                if(underIndex)
+                {
+                    i--;
+                    initIndex--;
+                }
             }
         }
     }

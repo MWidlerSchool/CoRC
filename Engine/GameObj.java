@@ -4,6 +4,7 @@ import MyTools.*;
 import Actor.*;
 import Map.*;
 import java.util.*;
+import GUI.*;
 
 
 public class GameObj
@@ -11,36 +12,58 @@ public class GameObj
 	private static Actor player;
 	private static GameMap map;
     private static Vector<Actor> actorList = new Vector<Actor>();
-    public static InitManager initManager;
+    private static InitManager initManager;
+    private static boolean masterHold = true;
+    
 
 
 	public static Actor getPlayer(){return player;}
 	public static GameMap getMap(){return map;}
     public static Vector<Actor> getActorList(){return actorList;}
+    public static boolean masterHold(){return masterHold;}
 
 
 	public static void setPlayer(Actor p){player = p;}
 	public static void setMap(GameMap m){map = m;}
+    public static void hold(){masterHold = true;}
+    public static void resume(){masterHold = false;}
 
     
     public static void init()
     {
-        player = new Actor('@');
-        player.setLoc(1, 1);
         map = GameMap.getTestMap();
         initManager = new InitManager();
+        ActorLocManager.init(map.getWidth(), map.getHeight());
         
+        
+        player = new Actor('@');
+        player.setLoc(1, 1);
+        player.setName("Test Player");
         Actor testEnemy = Actor.getTestEnemy();
         testEnemy.setLoc(3, 6);
-        
-        actorList = new Vector<Actor>();
-        actorList.add(player);
-        actorList.add(testEnemy);
-        initManager.add(player);
-        
-        initManager.add(testEnemy);
-        for(int i = 0; i < actorList.size(); i++)
-            initManager.add(actorList.elementAt(i));
+        add(player);
+        add(testEnemy);
     }
     
+    public static void add(Actor a)
+    {
+        actorList.add(a);
+        initManager.add(a);
+        ActorLocManager.add(a);
+    }
+    
+    public static void remove(Actor a)
+    {
+        actorList.remove(a);
+        initManager.remove(a);
+        ActorLocManager.remove(a);
+    }
+    
+    public static boolean isActorAt(Coord c){return isActorAt(c.x, c.y);}
+    public static boolean isActorAt(int x, int y){return getActorAt(x, y) != null;}
+    public static Actor getActorAt(Coord c){return getActorAt(c.x, c.y);}
+    public static Actor getActorAt(int x, int y)
+    {
+        return ActorLocManager.getActorAt(x, y);
+    }
 }

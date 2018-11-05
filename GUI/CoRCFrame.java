@@ -44,6 +44,8 @@ public class CoRCFrame extends JFrame implements ActionListener
         
         CoRCTimer timer = new CoRCTimer(1000 / 30);
         timer.add(this);
+        
+        GameObj.resume();
     }
     
     public static int getTileSize()

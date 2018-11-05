@@ -10,6 +10,8 @@ public class GameMap
     private MapCell oobTile = MapCell.NULL;
     
     public MapCell getCell(Coord c){return getCell(c.x, c.y);}
+    public int getWidth(){return width;}
+    public int getHeight(){return height;}
     
     
     public GameMap(int w, int h, char defaultTerrain)
@@ -22,6 +24,13 @@ public class GameMap
             map[x][y] = new MapCell(defaultTerrain);
     }
     
+    public boolean isInBounds(Coord c){return isInBounds(c.x, c.y);}
+    public boolean isInBounds(int x, int y)
+    {
+        if(x < width && y < height && x >= 0 && y >= 0)
+            return true;
+        return false;
+    }
     
     
     public MapCell getCell(int x, int y)
@@ -49,6 +58,11 @@ public class GameMap
         m.map[3][4] = new MapCell('#');
         m.map[4][3] = new MapCell('#');
         m.map[4][4] = new MapCell('#');
+        
+        m.map[1][2] = new MapCell('=');
+        m.map[2][2] = new MapCell('=');
+        m.map[3][2] = new MapCell('=');
+        m.map[4][2] = new MapCell('=');
         
         for(int x = 5; x < 44; x++)
         for(int y = 5; y < 44; y++)

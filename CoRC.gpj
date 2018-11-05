@@ -12,12 +12,14 @@ s#i0
 s#k0
 s#j0
 s#l0
-!899;g
+!978;g
 %\011Actor%sActor.java
 %\011AI%sAction.java
 %\011AI%sAIBase.java
 %\011%uMyTools%sFloodFill2.java
 %\011Engine%sInitObj.java
+%\011Engine%sActorLocManager.java
+%\011AI%sZombieAI.java
 %\011Actor%sStatBlock.java
 %\011GUI%sCharEnum.java
 %\011GUI%sCoRCTimer.java
@@ -32,6 +34,7 @@ s#l0
 %\011GUI%sCoRCFrame.java
 %\011GUI%sTileSet.java
 %\011%uMyTools%sVect.java
+%\011Engine%sRNG.java
 %\011%uMyTools%sColorChanger.java
 %\011GUI%sMainPanel.java
 %\011%uMyTools%sMathTools.java
@@ -46,12 +49,14 @@ s#l0
 %\011Map%sFastStarNode.java
 %\011Map%sFastStarStack.java
 %\011%uMyTools%sFieldOfView.java
-!899;f
+!978;f
 %\011Actor%sActor.java
 %\011AI%sAction.java
 %\011AI%sAIBase.java
 %\011%uMyTools%sFloodFill2.java
 %\011Engine%sInitObj.java
+%\011Engine%sActorLocManager.java
+%\011AI%sZombieAI.java
 %\011Actor%sStatBlock.java
 %\011GUI%sCharEnum.java
 %\011GUI%sCoRCTimer.java
@@ -66,6 +71,7 @@ s#l0
 %\011GUI%sCoRCFrame.java
 %\011GUI%sTileSet.java
 %\011%uMyTools%sVect.java
+%\011Engine%sRNG.java
 %\011%uMyTools%sColorChanger.java
 %\011GUI%sMainPanel.java
 %\011%uMyTools%sMathTools.java

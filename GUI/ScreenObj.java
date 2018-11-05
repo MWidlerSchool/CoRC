@@ -11,7 +11,6 @@ public class ScreenObj
 	private Color bgColor;
     private int width;
     private int height;
-    private Coord loc;
 
 
 	public BufferedImage getImage(){return image;}
@@ -19,12 +18,9 @@ public class ScreenObj
 	public Color getBGColor(){return bgColor;}
     public int getHeight(){return height;}
     public int getWidth(){return width;}
-    public Coord getLoc(){return new Coord(loc);}
 
 
 	public void setImage(BufferedImage i){image = i;}
-    public void setLoc(Coord c){setLoc(c.x, c.y);}
-    public void setLoc(int x, int y){loc.x = x; loc.y = y;}
 
     
     
@@ -35,7 +31,6 @@ public class ScreenObj
         bgColor = Color.BLACK;
         width = i.getWidth();
         height = i.getHeight();
-        loc = new Coord();
     }
     
     public ScreenObj(BufferedImage i, Color fg, Color bg)
