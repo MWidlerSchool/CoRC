@@ -8,7 +8,7 @@ import java.util.*;
     Handles incoming messages and displays them to the message area.
 */
 
-public class MessagePanel
+public class MessagePanel extends ScreenPanel
 {
     private static Vector<String> stringList = new Vector<String>();
     private static int maxStrings = 5;

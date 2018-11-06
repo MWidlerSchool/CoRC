@@ -14,6 +14,7 @@ public class GameObj
     private static Vector<Actor> actorList = new Vector<Actor>();
     private static InitManager initManager;
     private static boolean masterHold = true;
+    private static CoRCTimer timer;
     
 
 
@@ -29,19 +30,26 @@ public class GameObj
     public static void resume(){masterHold = false;}
 
     
-    public static void init()
+    public static void init(CoRCTimer t)
     {
         map = GameMap.getTestMap();
         initManager = new InitManager();
         ActorLocManager.init(map.getWidth(), map.getHeight());
-        
+        timer = t;
         
         player = new Actor('@');
         player.setLoc(1, 1);
         player.setName("Test Player");
+        player.setHealthBlock(new HealthBlock(true));
         Actor testEnemy = Actor.getTestEnemy();
         testEnemy.setLoc(3, 6);
         add(player);
+        add(testEnemy);
+        testEnemy = Actor.getTestEnemy();
+        testEnemy.setLoc(4, 6);
+        add(testEnemy);
+        testEnemy = Actor.getTestEnemy();
+        testEnemy.setLoc(5, 6);
         add(testEnemy);
     }
     
@@ -65,5 +73,11 @@ public class GameObj
     public static Actor getActorAt(int x, int y)
     {
         return ActorLocManager.getActorAt(x, y);
+    }
+    
+    public static void pauseTurns(int ticks)
+    {
+        initManager.setTurnPause(true);
+        timer.setTurnDelay(ticks);
     }
 }

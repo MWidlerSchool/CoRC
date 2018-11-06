@@ -61,7 +61,8 @@ public class InputListener implements KeyListener, MouseListener, MouseMotionLis
             case KeyEvent.VK_NUMPAD9    :  loc.x += 1;
                                            loc.y -= 1;
                                            break;
-            case KeyEvent.VK_SPACE      :  MessagePanel.add("mouseLoc = " + mouseLoc.toString());
+            case KeyEvent.VK_SPACE      :  //MessagePanel.add("mouseLoc = " + mouseLoc.toString());
+                                           GameObj.getPlayer().getHealthBlock().setCurHealth(GameObj.getPlayer().getHealthBlock().getCurHealth() - 1);
                                            return;
         }
         GameObj.getPlayer().getAI().setPendingCoord(loc);

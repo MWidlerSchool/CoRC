@@ -57,6 +57,7 @@ public class PlayerFoV
         viewArray = FieldOfView.getFoV(transparencyArr, new Coord(visionRadius, visionRadius));
     }
     
+    public static boolean canSee(Actor a){return canSee(a.getLoc());}
     public static boolean canSee(Coord c){return canSee(c.x, c.y);}
     public static boolean canSee(int x, int y)
     {

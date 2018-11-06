@@ -2,5 +2,8 @@ package AI;
 
 public enum Action
 {
-    WAIT, STEP, BASIC_ATTACK, ABILITY, JUMP, USE;
+    WAIT, STEP, JUMP,
+    BASIC_ATTACK, ABILITY, 
+    USE, GRAB, DROP,
+    CONTEXTUAL;
 }

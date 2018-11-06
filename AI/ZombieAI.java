@@ -22,8 +22,8 @@ public class ZombieAI extends AIBase
             // adjacent
             if(MathTools.getAngbandMetric(self.getLoc(), target.getLoc()) == 1)
             {
-                setPendingAction(Action.WAIT);
-                setPendingCoord(self.getLoc());
+                setPendingAction(Action.BASIC_ATTACK);
+                setPendingCoord(target.getLoc());
             }
             else // not adjacent
             {
@@ -43,7 +43,7 @@ public class ZombieAI extends AIBase
                 {
                     Direction option2 = dirTo.getNextClockwise();
                     Direction option3 = dirTo.getNextCounterclockwise();
-                    if(RNG.randomBoolean())
+                    if(RNG.nextBoolean())
                     {
                         option2 = dirTo.getNextCounterclockwise();
                         option3 = dirTo.getNextClockwise();

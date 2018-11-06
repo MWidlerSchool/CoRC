@@ -1,15 +1,19 @@
 package Engine;
 
 import java.util.*;
+import Actor.*;
 
 public class InitManager implements Runnable
 {
     private Thread thread;
     private Vector<InitObj> initList;
     private int initIndex;
-    private static boolean keepRunning;
+    private static boolean keepRunning = false;
+    private static boolean pauseTurns = false;
     
     public Vector<InitObj> getInitList(){return initList;}
+    
+    public static void setTurnPause(boolean pt){pauseTurns = pt;}
     
     public InitManager()
     {
@@ -24,6 +28,7 @@ public class InitManager implements Runnable
         thread = new Thread(this);
         thread.start();
         keepRunning = true;
+        pauseTurns = false;
     }
     
     public void run()
@@ -31,6 +36,9 @@ public class InitManager implements Runnable
         while(keepRunning)
         {
             if(initList.size() == 0 || GameObj.masterHold())
+                continue;
+                
+            if(pauseTurns)
                 continue;
             
             InitObj curObj = initList.elementAt(initIndex);
@@ -42,6 +50,16 @@ public class InitManager implements Runnable
             if(curObj.isCharged())
             {
                 curObj.act();
+                
+                // turn delay if acted
+                if(curObj instanceof Actor)
+                {
+                    Actor a = (Actor)curObj;
+                    if(a.isCharged() == false && 
+                       PlayerFoV.canSee(a) &&
+                       a != GameObj.getPlayer())
+                        GameObj.pauseTurns(GamePreferences.pauseBetweenTurns);
+                }
             }
             
             // go to next, unless it's the player thinking while charged
@@ -51,6 +69,7 @@ public class InitManager implements Runnable
                 if(initIndex >= initList.size())
                     initIndex = 0;
             }
+        Thread.yield();
         }
     }
     

@@ -13,6 +13,10 @@ public class MainPanel extends JPanel
 {
 	private JFrame parentFrame;
     private BufferedImage[][] mapAreaArray;
+    private BufferedImage[] mapTiles = null;
+    private BufferedImage[] terminalTiles = null;
+    private Font stringFont = null;
+    private int tileSize = -1;
 
 	public JFrame getParentFrame(){return parentFrame;}
     
@@ -25,25 +29,41 @@ public class MainPanel extends JPanel
         setFocusable(false);
         setBackground(Color.BLACK);
         mapAreaArray = new BufferedImage[GUIConstants.MAP_DISPLAY_WIDTH][GUIConstants.MAP_DISPLAY_HEIGHT];
+        
+        setTiles();
+    }
+    
+    public void setTiles()
+    {
+        mapTiles = TileSet.getMapTiles();
+        terminalTiles = TileSet.getTerminalTiles();
+        stringFont = TileSet.getStringFont();
+        tileSize = TileSet.getTileSize();
+        
+        ScreenPanel.setMapTiles(mapTiles);
+        ScreenPanel.setTerminalTiles(terminalTiles);
+        ScreenPanel.setStringFont(stringFont);
+        ScreenPanel.setTileSize(tileSize);
     }
     
     @Override
     public void paint(Graphics g)
     {
         super.paint(g);
-        
-        BufferedImage[] mapTiles = TileSet.getMapTiles();
-        BufferedImage[] terminalTiles = TileSet.getTerminalTiles();
-        Font stringFont = TileSet.getStringFont();
-        int tileSize = TileSet.getTileSize();
         if(mapTiles  == null || terminalTiles == null)
-            return;
+        {
+            setTiles();
+            if(mapTiles  == null || terminalTiles == null)
+                return;
+        }
+            
         Graphics2D g2d = (Graphics2D)g;
         
         paintStandardBorders(g2d, mapTiles, tileSize);
         paintMapArea(g2d, mapTiles, tileSize);
         
         MessagePanel.paint(g2d, terminalTiles, tileSize);
+        PlayerInfoPanel.paint(g2d);
         
     }
     
@@ -95,19 +115,19 @@ public class MainPanel extends JPanel
     private void paintStandardBorders(Graphics2D g2d, BufferedImage[] mapTiles, int tileSize)
     {
         // tile indexes
-        int vert = 3 + (11 * 16);
-        int horiz = 4 + (12 * 16);
-        int doubleHoriz = 13 + (12 * 16);
-        int doubleVert = 10 + (11 * 16);
-        int uRCorner = (12 * 16) - 1;
-        int lLCorner = uRCorner + 1;
-        int lRCorner = 9 + (13 * 16);
-        int uLCorner = lRCorner + 1;
-        int junctA = 2 + (13 * 16);
-        int junctB = 9 + (11 * 16);
-        int junctC = (13 * 16);
-        int junctD = 11 + (12 * 16);
-        int junctE = 6 + (12 * 16);
+        int vert = 0xB3;
+        int horiz = 0xC4;
+        int doubleHoriz = 0xCD;
+        int doubleVert = 0xBA;
+        int uRCorner = 0xBF;
+        int lLCorner = 0xC0;
+        int lRCorner = 0xD9;
+        int uLCorner = 0xDA;
+        int junctA = 0xD2;
+        int junctB = 0xB9;
+        int junctC = 0xD0;
+        int junctD = 0xCB;
+        int junctE = 0xC6;
         
         // draw screen borders
         int bottomWall = (GUIConstants.TILES_PER_SCREEN[1] - 1) * tileSize;

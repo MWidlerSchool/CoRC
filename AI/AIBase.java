@@ -4,6 +4,7 @@ import Actor.*;
 import Map.*;
 import MyTools.*;
 import Engine.*;
+import Ability.*;
 import GUI.MessagePanel;
 
 public class AIBase
@@ -61,10 +62,12 @@ public class AIBase
     {
         switch(pendingAction)
         {
-            case STEP   :   step(pendingCoord);
-                            break;
-            case WAIT   :   delay();
-                            break;
+            case STEP           :   step(pendingCoord);
+                                    break;
+            case WAIT           :   delay();
+                                    break;
+            case BASIC_ATTACK   :   attack(self.getBasicAttack(), pendingCoord);
+                                    break;
         }
         clear();
     }
@@ -88,5 +91,19 @@ public class AIBase
             self.setLoc(targetLoc);
             
         self.dischargeMove();
+    }
+    
+    public void attack(Attack attack, Coord targetLoc)
+    {
+        Actor target = GameObj.getActorAt(targetLoc);
+        if(target == null)
+        {
+            clear();
+            return;
+        }
+        
+        CombatManager.resolveAttack(self, target, attack);
+            
+        self.dischargeAction();
     }
 }

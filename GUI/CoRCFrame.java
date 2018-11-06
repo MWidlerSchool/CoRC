@@ -15,6 +15,7 @@ public class CoRCFrame extends JFrame implements ActionListener
     private MainPanel mainPanel;
     private InputListener inputListener;
     public InitManager initManager;
+    public CoRCTimer timer;
     
     public CoRCFrame()
     {
@@ -37,13 +38,13 @@ public class CoRCFrame extends JFrame implements ActionListener
         addKeyListener(inputListener);
         addMouseListener(inputListener);
         addMouseMotionListener(inputListener);
+        timer = new CoRCTimer(1000 / 30);
+        timer.add(this);
         
-        GameObj.init();
+        GameObj.init(timer);
         
         initManager = new InitManager();
         
-        CoRCTimer timer = new CoRCTimer(1000 / 30);
-        timer.add(this);
         
         GameObj.resume();
     }
