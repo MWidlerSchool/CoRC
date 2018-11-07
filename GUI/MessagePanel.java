@@ -13,20 +13,19 @@ public class MessagePanel extends ScreenPanel
     private static Vector<String> stringList = new Vector<String>();
     private static int maxStrings = 5;
     
-    public static void paint(Graphics2D g2d, BufferedImage[] terminalTiles, int tileSize)
+    public static void paint(Graphics2D g2d, Font stringFont)
     {
+        g2d.setFont(stringFont);
+        g2d.setColor(GUIConstants.WHITE);
+        int tileSize = CoRCFrame.getTileSize();
         int reps = Math.min(maxStrings, stringList.size());
         int tileWidth = tileSize;
         int tileHeight = tileSize + tileSize;
-        int yOrigin = tileSize;
+        int yOrigin = tileSize * 2;
         
         for(int i = 0; i < reps; i++)
         {
-            char[] arr = stringList.elementAt(reps - i - 1).toCharArray();
-            for(int j = 0; j < arr.length; j++)
-                g2d.drawImage(terminalTiles[arr[j]], (j + 1) * tileWidth, yOrigin + (i * tileHeight), null);
-            for(int j = arr.length; j < GUIConstants.MAX_MESSAGE_SIZE; j++)
-                g2d.drawImage(terminalTiles[0], (j + 1) * tileWidth, yOrigin + (i * tileHeight), null);
+            g2d.drawString(stringList.elementAt(reps - i - 1), tileWidth, yOrigin + (tileHeight * i));
         }
         
     }

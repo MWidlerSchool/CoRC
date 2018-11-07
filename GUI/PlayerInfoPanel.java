@@ -17,64 +17,72 @@ public class PlayerInfoPanel extends ScreenPanel
     private static int yOrigin = GUIConstants.PLAYER_INFO_DISPLAY_ORIGIN[1];
     
     
-    public static void paint(Graphics2D g2d)
+    public static void paint(Graphics2D g2d, Font stringFont, Font terminalFont)
     {
         Actor player = GameObj.getPlayer();
         
         // early exit if no player
         if(player == null)
         {
-            fill(g2d, xOrigin, yOrigin, GUIConstants.PLAYER_INFO_DISPLAY_WIDTH, GUIConstants.PLAYER_INFO_DISPLAY_HEIGHT, 0);
             return;
-            
         }
-
+        
+        g2d.setFont(stringFont);
         writeString(g2d, xOrigin, yOrigin, player.getName());
-        writeString(g2d, xOrigin, yOrigin + 4, "Block:  ");
         
-        paintHealthBar(g2d, player);
-        paintBlockBar(g2d, player);
+        paintHealthBar(g2d, player, terminalFont);
+        paintBlockBar(g2d, player, terminalFont);
     }
     
     
-    public static void paintHealthBar(Graphics2D g2d, Actor player)
+    public static void paintHealthBar(Graphics2D g2d, Actor player, Font terminalFont)
     {
-        writeString(g2d, xOrigin, yOrigin + 2, "Health: [          ]");
+        g2d.setFont(terminalFont);
+        g2d.setColor(GUIConstants.HEALTH_COLOR);
+        writeString(g2d, xOrigin + 1, yOrigin + 2, "Health");
+        g2d.drawString(Character.toString((char)16), (xOrigin + 8) * getTileWidth(), (yOrigin + 3) * getTileHeight());
+        g2d.drawString(Character.toString((char)17), (xOrigin + 19) * getTileWidth(), (yOrigin + 3) * getTileHeight());
         int[] healthArr = GUITools.getIntensityArray(player.getHealthBlock().getCurHealth(), player.getHealthBlock().getMaxHealth(), 10, 4);
-        BufferedImage[] bar = new BufferedImage[5];
-        bar[0] = GUITools.copyImage(getTerminalTiles()[0x00]);     // empty
-        bar[1] = GUITools.copyImage(getTerminalTiles()[0xB0]);     // 25%
-        bar[2] = GUITools.copyImage(getTerminalTiles()[0xB1]);     // 50%
-        bar[3] = GUITools.copyImage(getTerminalTiles()[0xB2]);     // 75%
-        bar[4] = GUITools.copyImage(getTerminalTiles()[0xDB]);     // 100%
-        
-        for(int i = 0; i < 5; i++)
-            ColorChanger.change(bar[i], GUIConstants.WHITE, GUIConstants.HEALTH_COLOR);
+        String[] bar = new String[5];
+        bar[0] = Character.toString((char)9608);     // empty
+        bar[1] = Character.toString((char)9619);     // 25%
+        bar[2] = Character.toString((char)9618);     // 50%
+        bar[3] = Character.toString((char)9617);     // 75%
+        bar[4] = Character.toString((char)9608);     // 100%
         
         for(int i = 0; i < healthArr.length; i++)
         {
-            g2d.drawImage(bar[healthArr[i]], (xOrigin + 9 + i) * getTileWidth(), (yOrigin + 2) * getTileHeight(), null);
+            if(healthArr[i] == 0)
+                g2d.setColor(GUIConstants.BLACK);
+            else
+                g2d.setColor(GUIConstants.HEALTH_COLOR);
+            g2d.drawString(bar[healthArr[i]], (xOrigin + 9 + i) * getTileWidth(), (yOrigin + 3) * getTileHeight());
         }
     }
     
     
-    public static void paintBlockBar(Graphics2D g2d, Actor player)
+    public static void paintBlockBar(Graphics2D g2d, Actor player, Font terminalFont)
     {
-        writeString(g2d, xOrigin, yOrigin + 4, "Block:  [          ]");
-        int[] healthArr = GUITools.getIntensityArray(player.getHealthBlock().getCurBlock(), player.getHealthBlock().getMaxBlock(), 10, 4);
-        BufferedImage[] bar = new BufferedImage[5];
-        bar[0] = GUITools.copyImage(getTerminalTiles()[0x00]);     // empty
-        bar[1] = GUITools.copyImage(getTerminalTiles()[0xB0]);     // 25%
-        bar[2] = GUITools.copyImage(getTerminalTiles()[0xB1]);     // 50%
-        bar[3] = GUITools.copyImage(getTerminalTiles()[0xB2]);     // 75%
-        bar[4] = GUITools.copyImage(getTerminalTiles()[0xDB]);     // 100%
+        g2d.setFont(terminalFont);
+        g2d.setColor(GUIConstants.BLOCK_COLOR);
+        writeString(g2d, xOrigin + 1, yOrigin + 4, "Block");
+        g2d.drawString(Character.toString((char)16), (xOrigin + 8) * getTileWidth(), (yOrigin + 5) * getTileHeight());
+        g2d.drawString(Character.toString((char)17), (xOrigin + 19) * getTileWidth(), (yOrigin + 5) * getTileHeight());
+        int[] blockArr = GUITools.getIntensityArray(player.getHealthBlock().getCurBlock(), player.getHealthBlock().getMaxBlock(), 10, 4);
+        String[] bar = new String[5];
+        bar[0] = Character.toString((char)9608);     // empty
+        bar[1] = Character.toString((char)9619);     // 25%
+        bar[2] = Character.toString((char)9618);     // 50%
+        bar[3] = Character.toString((char)9617);     // 75%
+        bar[4] = Character.toString((char)9608);     // 100%
         
-        for(int i = 0; i < 5; i++)
-            ColorChanger.change(bar[i], GUIConstants.WHITE, GUIConstants.BLOCK_COLOR);
-        
-        for(int i = 0; i < healthArr.length; i++)
+        for(int i = 0; i < blockArr.length; i++)
         {
-            g2d.drawImage(bar[healthArr[i]], (xOrigin + 9 + i) * getTileWidth(), (yOrigin + 4) * getTileHeight(), null);
+            if(blockArr[i] == 0)
+                g2d.setColor(GUIConstants.BLACK);
+            else
+                g2d.setColor(GUIConstants.BLOCK_COLOR);
+            g2d.drawString(bar[blockArr[i]], (xOrigin + 9 + i) * getTileWidth(), (yOrigin + 5) * getTileHeight());
         }
     }
 

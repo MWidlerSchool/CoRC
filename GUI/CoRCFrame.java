@@ -28,11 +28,11 @@ public class CoRCFrame extends JFrame implements ActionListener
         int height = GUIConstants.TILES_PER_SCREEN[1] * tileSize;
         width += insets.left + insets.right;
         height += insets.bottom + insets.top;
+        setSize(tileSize);
         setSize(width, height);
         setTitle(GUIConstants.TITLE_STRING);
         mainPanel = new MainPanel(this);
-        ImageLoader.loadFont();
-        TileSet.set(tileSize);
+        FontManager.loadFonts();
         
         inputListener = new InputListener();
         addKeyListener(inputListener);
@@ -52,6 +52,12 @@ public class CoRCFrame extends JFrame implements ActionListener
     public static int getTileSize()
     {
         return tileSize;
+    }
+    
+    public static void setSize(int s)
+    {
+        tileSize = s;
+        ScreenPanel.setTileSize(s);
     }
     
     public void actionPerformed(ActionEvent ae)

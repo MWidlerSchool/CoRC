@@ -7,13 +7,7 @@ import MyTools.*;
 
 public class GUITools
 {
-    public static BufferedImage copyImage(BufferedImage bImg) 
-    {
-        ColorModel cm = bImg.getColorModel();
-        boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
-        WritableRaster raster = bImg.copyData(bImg.getRaster().createCompatibleWritableRaster());
-        return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
-    }
+
     
     // returns an array on n ints, ranging from 0 to i, where i = increment
     public static int[] getIntensityArray(int cur, int max, int cells, int increment)
@@ -58,6 +52,16 @@ public class GUITools
             cArr[9 - i] = new Color(baseRed / (i + 1), baseGreen / (i + 1), baseBlue / (i + 1));
         }
         return cArr;
+    }
+    
+    public static int pixelsToPoint(int px)
+    {
+        return (px * 4) / 3;
+    }
+    
+    public static int pointToPixels(int pt)
+    {
+        return (pt * 3) / 4;
     }
 
     

@@ -12,7 +12,7 @@ s#i0
 s#k0
 s#j0
 s#l0
-!1219;g
+!1162;g
 %\011Actor%sActor.java
 %\011AI%sAction.java
 %\011Ability%sAttack.java
@@ -26,6 +26,7 @@ s#l0
 %\011GUI%sCoRCTimer.java
 %\011Engine%sGameObj.java
 %\011Engine%sCombatManager.java
+%\011GUI%sFontManager.java
 %\011Map%sGameMap.java
 %\011Map%sFastStarArray.java
 %\011Map%sMapCell.java
@@ -33,12 +34,9 @@ s#l0
 %\011Actor%sHealthBlock.java
 %\011GUI%sInputListener.java
 %\011%uMyTools%sCoord.java
-%\011GUI%sImageLoader.java
 %\011GUI%sCoRCFrame.java
-%\011GUI%sTileSet.java
 %\011%uMyTools%sVect.java
 %\011Engine%sRNG.java
-%\011%uMyTools%sColorChanger.java
 %\011GUI%sMainPanel.java
 %\011%uMyTools%sMathTools.java
 %\011Actor%sActorConstants.java
@@ -57,7 +55,7 @@ s#l0
 %\011Map%sFastStarStack.java
 %\011Engine%sGamePreferences.java
 %\011%uMyTools%sFieldOfView.java
-!1219;f
+!1162;f
 %\011Actor%sActor.java
 %\011AI%sAction.java
 %\011Ability%sAttack.java
@@ -71,6 +69,7 @@ s#l0
 %\011GUI%sCoRCTimer.java
 %\011Engine%sGameObj.java
 %\011Engine%sCombatManager.java
+%\011GUI%sFontManager.java
 %\011Map%sGameMap.java
 %\011Map%sFastStarArray.java
 %\011Map%sMapCell.java
@@ -78,12 +77,9 @@ s#l0
 %\011Actor%sHealthBlock.java
 %\011GUI%sInputListener.java
 %\011%uMyTools%sCoord.java
-%\011GUI%sImageLoader.java
 %\011GUI%sCoRCFrame.java
-%\011GUI%sTileSet.java
 %\011%uMyTools%sVect.java
 %\011Engine%sRNG.java
-%\011%uMyTools%sColorChanger.java
 %\011GUI%sMainPanel.java
 %\011%uMyTools%sMathTools.java
 %\011Actor%sActorConstants.java

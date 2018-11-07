@@ -10,7 +10,6 @@ public class MapCell extends ScreenObj
 	private boolean highPassable;
 	private boolean lowPassable;
 	private boolean transparent;
-    private BufferedImage oovImage;    // out of view
     
     public static MapCell NULL = new MapCell();
 
@@ -18,7 +17,6 @@ public class MapCell extends ScreenObj
 	public boolean isHighPassable(){return highPassable;}
 	public boolean isLowPassable(){return lowPassable;}
 	public boolean isTransparent(){return transparent;}
-    public BufferedImage getOOVImage(){return oovImage;}
 
 
 	public void setHighPassable(boolean h){highPassable = h;}
@@ -33,9 +31,7 @@ public class MapCell extends ScreenObj
     
     public MapCell(char c)
     {
-        super(TileSet.getMapTile(c));
-        oovImage = TileSet.getMapTile(c);
-        ColorChanger.change(oovImage, Color.WHITE, Color.DARK_GRAY);
+        super(c);
         
         // transparency
         switch(c)
@@ -59,5 +55,9 @@ public class MapCell extends ScreenObj
         {
             case '.' : setLowPassable(true);
         }
+        
+        // change period to bullet
+        if(c == '.')
+            setStr(GUIConstants.BULLET_CHAR);
     }
 }

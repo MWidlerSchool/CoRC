@@ -12,9 +12,10 @@ import java.util.*;
 public class MainPanel extends JPanel
 {
 	private JFrame parentFrame;
-    private BufferedImage[][] mapAreaArray;
-    private BufferedImage[] mapTiles = null;
-    private BufferedImage[] terminalTiles = null;
+    private ScreenObj[][] mapAreaArray;
+    private Color[][] mapColorArray;
+    private Font mapFont = null;
+    private Font terminalFont = null;
     private Font stringFont = null;
     private int tileSize = -1;
 
@@ -28,47 +29,43 @@ public class MainPanel extends JPanel
         parentFrame.add(this);
         setFocusable(false);
         setBackground(Color.BLACK);
-        mapAreaArray = new BufferedImage[GUIConstants.MAP_DISPLAY_WIDTH][GUIConstants.MAP_DISPLAY_HEIGHT];
-        
-        setTiles();
+        mapAreaArray = new ScreenObj[GUIConstants.MAP_DISPLAY_WIDTH][GUIConstants.MAP_DISPLAY_HEIGHT];
+        mapColorArray = new Color[GUIConstants.MAP_DISPLAY_WIDTH][GUIConstants.MAP_DISPLAY_HEIGHT];
+
     }
     
-    public void setTiles()
+    public void setFonts()
     {
-        mapTiles = TileSet.getMapTiles();
-        terminalTiles = TileSet.getTerminalTiles();
-        stringFont = TileSet.getStringFont();
-        tileSize = TileSet.getTileSize();
-        
-        ScreenPanel.setMapTiles(mapTiles);
-        ScreenPanel.setTerminalTiles(terminalTiles);
-        ScreenPanel.setStringFont(stringFont);
-        ScreenPanel.setTileSize(tileSize);
+        tileSize = CoRCFrame.getTileSize();
+        mapFont = FontManager.getMapFont(tileSize);
+        terminalFont = FontManager.getTerminalFont(tileSize);
+        stringFont = FontManager.getStringFont(tileSize);
     }
     
     @Override
     public void paint(Graphics g)
     {
         super.paint(g);
-        if(mapTiles  == null || terminalTiles == null)
+        if(mapFont  == null || terminalFont == null)
         {
-            setTiles();
-            if(mapTiles  == null || terminalTiles == null)
+            setFonts();
+            if(mapFont  == null || terminalFont == null)
                 return;
         }
             
         Graphics2D g2d = (Graphics2D)g;
         
-        paintStandardBorders(g2d, mapTiles, tileSize);
-        paintMapArea(g2d, mapTiles, tileSize);
+        paintStandardBorders(g2d, mapFont);
+        paintMapArea(g2d, mapFont);
         
-        MessagePanel.paint(g2d, terminalTiles, tileSize);
-        PlayerInfoPanel.paint(g2d);
+        MessagePanel.paint(g2d, stringFont);
+        PlayerInfoPanel.paint(g2d, stringFont, terminalFont);
         
     }
     
-    private void paintMapArea(Graphics2D g2d, BufferedImage[] mapTiles, int tileSize)
+    private void paintMapArea(Graphics2D g2d, Font mapFont)
     {        
+        g2d.setFont(mapFont);
         Actor player = GameObj.getPlayer();
         GameMap map = GameObj.getMap();
         if(player == null || map == null)
@@ -81,12 +78,11 @@ public class MainPanel extends JPanel
         for(int x = 0; x < GUIConstants.MAP_DISPLAY_WIDTH; x++)
         for(int y = 0; y < GUIConstants.MAP_DISPLAY_HEIGHT; y++)
         {
+            mapAreaArray[x][y] = map.getCell(x + xCorner, y + yCorner);
             if(PlayerFoV.canSee(x + xCorner, y + yCorner))
-                mapAreaArray[x][y] = map.getCell(x + xCorner, y + yCorner).getImage();
+                mapColorArray[x][y] = map.getCell(x + xCorner, y + yCorner).getFGColor();
             else
-            {
-                mapAreaArray[x][y] = map.getCell(x + xCorner, y + yCorner).getOOVImage();
-            }
+                mapColorArray[x][y] = GUIConstants.OOB_COLOR;
         }
         
         // load items
@@ -98,7 +94,8 @@ public class MainPanel extends JPanel
             Actor actor = actorList.elementAt(i);
             if(PlayerFoV.canSee(actor.getLoc()))
             {
-                mapAreaArray[actor.getLoc().x - xCorner][actor.getLoc().y - yCorner] = actor.getImage();
+                mapAreaArray[actor.getLoc().x - xCorner][actor.getLoc().y - yCorner] = actor;
+                mapColorArray[actor.getLoc().x - xCorner][actor.getLoc().y - yCorner] = actor.getFGColor();
             }
         }
         
@@ -106,82 +103,55 @@ public class MainPanel extends JPanel
         for(int x = 0; x < GUIConstants.MAP_DISPLAY_WIDTH; x++)
         for(int y = 0; y < GUIConstants.MAP_DISPLAY_HEIGHT; y++)
         {
-            BufferedImage curImage = mapAreaArray[x][y];
-            g2d.drawImage(curImage, (x + GUIConstants.MAP_DISPLAY_ORIGIN[0]) * tileSize, 
-                                    (y + GUIConstants.MAP_DISPLAY_ORIGIN[1]) * tileSize, null);
+            ScreenObj curImage = mapAreaArray[x][y];
+            if(mapColorArray[x][y] == null)
+                g2d.setColor(GUIConstants.OOB_COLOR);
+            else
+                g2d.setColor(mapColorArray[x][y]);
+            g2d.drawString(curImage.getStr(), (x + GUIConstants.MAP_DISPLAY_ORIGIN[0]) * tileSize, 
+                                     (y + GUIConstants.MAP_DISPLAY_ORIGIN[1]) * tileSize);
         }
     }
     
-    private void paintStandardBorders(Graphics2D g2d, BufferedImage[] mapTiles, int tileSize)
+    private void paintStandardBorders(Graphics2D g2d, Font mapFont)
     {
-        // tile indexes
-        int vert = 0xB3;
-        int horiz = 0xC4;
-        int doubleHoriz = 0xCD;
-        int doubleVert = 0xBA;
-        int uRCorner = 0xBF;
-        int lLCorner = 0xC0;
-        int lRCorner = 0xD9;
-        int uLCorner = 0xDA;
-        int junctA = 0xD2;
-        int junctB = 0xB9;
-        int junctC = 0xD0;
-        int junctD = 0xCB;
-        int junctE = 0xC6;
-        
+        g2d.setFont(mapFont);
+        g2d.setColor(GUIConstants.WHITE);
         // draw screen borders
-        int bottomWall = (GUIConstants.TILES_PER_SCREEN[1] - 1) * tileSize;
+        int bottomWall = (GUIConstants.TILES_PER_SCREEN[1]) * tileSize;
         int rightWall = (GUIConstants.TILES_PER_SCREEN[0] - 1) * tileSize;
         for(int x = 1; x < GUIConstants.TILES_PER_SCREEN[0] - 1; x++)
         {
-            g2d.drawImage(mapTiles[horiz], x * tileSize, 0, null);
-            g2d.drawImage(mapTiles[horiz], x * tileSize, bottomWall, null);
+            g2d.drawString("+", x * tileSize, tileSize);
+            g2d.drawString("+", x * tileSize, bottomWall);
         }
-        for(int y = 1; y < GUIConstants.TILES_PER_SCREEN[1] - 1; y++)
+        for(int y = 1; y <= GUIConstants.TILES_PER_SCREEN[1]; y++)
         {
-            g2d.drawImage(mapTiles[vert], 0, y * tileSize, null);
-            g2d.drawImage(mapTiles[vert], rightWall, y * tileSize, null);
+            g2d.drawString("+", 0, y * tileSize);
+            g2d.drawString("+", rightWall, y * tileSize);
         }
         
         // message area
         rightWall = GUIConstants.MESSAGE_DISPLAY_ORIGIN[0] + GUIConstants.MESSAGE_DISPLAY_WIDTH;
         bottomWall = GUIConstants.MESSAGE_DISPLAY_ORIGIN[1] + GUIConstants.MESSAGE_DISPLAY_HEIGHT;
         for(int x = GUIConstants.MESSAGE_DISPLAY_ORIGIN[0]; x < rightWall; x++)
-            g2d.drawImage(mapTiles[doubleHoriz], x * tileSize, bottomWall * tileSize, null);
-        for(int y = GUIConstants.MESSAGE_DISPLAY_ORIGIN[1]; y < bottomWall; y++)
-            g2d.drawImage(mapTiles[doubleVert], rightWall * tileSize, y * tileSize, null);
+            g2d.drawString("+", x * tileSize, bottomWall * tileSize);
+        for(int y = GUIConstants.MESSAGE_DISPLAY_ORIGIN[1]; y <= bottomWall; y++)
+            g2d.drawString("+", rightWall * tileSize, y * tileSize);
         
         // player info area
         rightWall = GUIConstants.PLAYER_INFO_DISPLAY_ORIGIN[0] + GUIConstants.PLAYER_INFO_DISPLAY_WIDTH;
         bottomWall = GUIConstants.PLAYER_INFO_DISPLAY_ORIGIN[1] + GUIConstants.PLAYER_INFO_DISPLAY_HEIGHT;
-        for(int y = GUIConstants.PLAYER_INFO_DISPLAY_ORIGIN[1]; y < bottomWall; y++)
-            g2d.drawImage(mapTiles[doubleVert], rightWall * tileSize, y * tileSize, null);
+        for(int y = GUIConstants.PLAYER_INFO_DISPLAY_ORIGIN[1]; y <= bottomWall; y++)
+            g2d.drawString("+", rightWall * tileSize, y * tileSize);
         
         // map area
         rightWall = GUIConstants.MAP_DISPLAY_ORIGIN[0] + GUIConstants.MAP_DISPLAY_WIDTH;
         bottomWall = GUIConstants.MAP_DISPLAY_ORIGIN[1] + GUIConstants.MAP_DISPLAY_HEIGHT;
-        for(int y = GUIConstants.MAP_DISPLAY_ORIGIN[1]; y < bottomWall; y++)
-            g2d.drawImage(mapTiles[doubleVert], rightWall * tileSize, y * tileSize, null);
+        for(int y = GUIConstants.MAP_DISPLAY_ORIGIN[1]; y <= bottomWall; y++)
+            g2d.drawString("+", rightWall * tileSize, y * tileSize);
             
         // HUD area outlined by induction
-        
-        // corners
-        g2d.drawImage(mapTiles[uLCorner], 0, 0, null);
-        g2d.drawImage(mapTiles[uRCorner], (GUIConstants.TILES_PER_SCREEN[0] - 1) * tileSize, 0, null);
-        g2d.drawImage(mapTiles[lLCorner], 0, (GUIConstants.TILES_PER_SCREEN[1] - 1) * tileSize, null);
-        g2d.drawImage(mapTiles[lRCorner], (GUIConstants.TILES_PER_SCREEN[0] - 1) * tileSize, 
-                                          (GUIConstants.TILES_PER_SCREEN[1] - 1) * tileSize, null);
-                                          
-        int v1 = (GUIConstants.MAP_DISPLAY_ORIGIN[0] - 1) * tileSize;
-        int v2 = (GUIConstants.HUD_DISPLAY_ORIGIN[0] - 1) * tileSize;
-        int h1 = (GUIConstants.MAP_DISPLAY_ORIGIN[1] - 1) * tileSize;
-        int h2 = (GUIConstants.TILES_PER_SCREEN[1] - 1) * tileSize;
-        g2d.drawImage(mapTiles[junctA], v2, 0, null);
-        g2d.drawImage(mapTiles[junctB], v2, h1, null);
-        g2d.drawImage(mapTiles[junctC], v2, h2, null);
-        g2d.drawImage(mapTiles[junctC], v1, h2, null);
-        g2d.drawImage(mapTiles[junctD], v1, h1, null);
-        g2d.drawImage(mapTiles[junctE], 0, h1, null);
     }
     
 }

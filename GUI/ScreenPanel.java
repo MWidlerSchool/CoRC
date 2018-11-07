@@ -43,17 +43,7 @@ public class ScreenPanel
     public static void writeString(Graphics2D g2d, int xLocTiles, int yLocTiles, String str)
     {
         char[] arr = str.toCharArray();
-        int yLoc = yLocTiles * tileHeight;
-        for(int i = 0; i < arr.length; i++)
-            g2d.drawImage(terminalTiles[arr[i]], (xLocTiles + i) * tileWidth, yLoc, null);
-    }
-    
-    // fill an area with a specific tile
-    public static void fill(Graphics2D g2d, int xStartTiles, int yStartTiles, int widthTiles, int heightTiles, int tileIndex)
-    {
-        BufferedImage tile = mapTiles[tileIndex];
-        for(int x = 0; x < widthTiles; x++)
-        for(int y = 0; y < heightTiles; y++)
-            g2d.drawImage(tile, (xStartTiles + x) * tileWidth, (yStartTiles + y) * tileHeight, null);
+        int yLoc = (yLocTiles + 1) * tileHeight;
+            g2d.drawString(str, xLocTiles * tileWidth, yLoc);
     }
 }

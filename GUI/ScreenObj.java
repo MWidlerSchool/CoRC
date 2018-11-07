@@ -6,49 +6,39 @@ import MyTools.*;
 
 public class ScreenObj
 {
-	private BufferedImage image;
+	private String str;
 	private Color fgColor;
 	private Color bgColor;
-    private int width;
-    private int height;
 
 
-	public BufferedImage getImage(){return image;}
+	public String getStr(){return str;}
 	public Color getFGColor(){return fgColor;}
 	public Color getBGColor(){return bgColor;}
-    public int getHeight(){return height;}
-    public int getWidth(){return width;}
 
 
-	public void setImage(BufferedImage i){image = i;}
+	public void setStr(String s){str = s;}
+    public void setStr(char s){setStr(Character.toString(s));}
+	public void setFGColor(Color f){fgColor = f;}
+	public void setBGColor(Color b){bgColor = b;}
 
     
     
-    public ScreenObj(BufferedImage i)
+    public ScreenObj(String s)
     {
-        image = i;
+        str = s;
         fgColor = Color.WHITE;
         bgColor = Color.BLACK;
-        width = i.getWidth();
-        height = i.getHeight();
     }
     
-    public ScreenObj(BufferedImage i, Color fg, Color bg)
+    public ScreenObj(char c, Color fg, Color bg)
     {
-        this(i);
+        this(c);
         setFGColor(fg);
         setBGColor(bg);
     }
     
-	public void setFGColor(Color f)
+    public ScreenObj(char c)
     {
-        ColorChanger.change(image, fgColor, f);
-        fgColor = f;
-    }
-    
-	public void setBGColor(Color b)
-    {
-        ColorChanger.change(image, bgColor, b);
-        bgColor = b;
+        this(Character.toString(c));
     }
 }

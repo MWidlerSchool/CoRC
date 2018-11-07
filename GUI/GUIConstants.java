@@ -5,11 +5,11 @@ import java.awt.*;
 
 public class GUIConstants
 {
-    public static final int[] TILES_PER_SCREEN = {112, 63}; // 16x9
-    public static final int DEFAULT_TILE_SIZE = 16;
+    public static final int[] TILES_PER_SCREEN = {96, 54}; // 16x9
+    public static final int DEFAULT_TILE_SIZE = 18;
     public static final String TITLE_STRING = "Champions of Rogue City v0.0.0";
     
-    public static final int MAP_DISPLAY_WIDTH = 49;
+    public static final int MAP_DISPLAY_WIDTH = 39;
     public static final int PLAYER_INFO_DISPLAY_WIDTH = (TILES_PER_SCREEN[0] - (MAP_DISPLAY_WIDTH + 3)) / 2;
     public static final int HUD_DISPLAY_WIDTH = PLAYER_INFO_DISPLAY_WIDTH;
     public static final int MESSAGE_DISPLAY_WIDTH = MAP_DISPLAY_WIDTH + PLAYER_INFO_DISPLAY_WIDTH + 1;
@@ -74,4 +74,23 @@ public class GUIConstants
     // interface colors
     public static final Color HEALTH_COLOR = DARK_RED;
     public static final Color BLOCK_COLOR = DARK_BLUE;
+    public static final Color OOB_COLOR = DARK_GRAY;
+    
+    
+    // chars
+    public static final char DIAMOND_CHAR = (char)9830;
+	public static final char HEART_CHAR = (char)9829;
+	public static final char CLUB_CHAR = (char)9827;
+	public static final char SPADE_CHAR = (char)9824;
+	public static final char NOTE_CHAR = (char)9834;
+	public static final char DOUBLE_NOTE_CHAR = (char)9835;
+	public static final char DELTA_CHAR = (char)8710;
+	public static final char BULLET_CHAR = (char)183;
+	public static final char LARGE_BULLET_CHAR = (char)8226;
+	public static final char PLUS_MINUS_CHAR = (char)177;
+       
+    public static final char BLOCK_100 = (char)9608;
+    public static final char BLOCK_75 = (char)9619;
+    public static final char BLOCK_50 = (char)9618;
+    public static final char BLOCK_25 = (char)9617;
 }

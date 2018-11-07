@@ -35,7 +35,7 @@ public class Actor extends ScreenObj implements InitObj
     // primary construtor
     public Actor(char c)
     {
-        super(TileSet.getMapTile(c));
+        super(c);
         ai = new AIBase(this);
         statBlock = new StatBlock();
         healthBlock = new HealthBlock();
