@@ -3,7 +3,7 @@ package Ability;
 import Actor.*;
 
 /*
-The class for attacks. Attacks are xd10, against a TN of y, dealing successes * baseDamage.
+    The class for attacks. Attacks are xd10, against a TN of y, dealing (successes + x) * baseDamage.
 */
 
 public class Attack
@@ -40,6 +40,6 @@ public class Attack
     
     public Attack()
     {
-        this("Strike", "strikes", ActorConstants.AGILITY, ActorConstants.AGILITY, 5);
+        this("Strike", "strikes", ActorConstants.AGILITY, ActorConstants.AGILITY, 3);
     }
 }

@@ -7,6 +7,7 @@ public class GUIConstants
 {
     public static final int[] TILES_PER_SCREEN = {96, 54}; // 16x9
     public static final int DEFAULT_TILE_SIZE = 18;
+    public static final int AT_OFFSET = DEFAULT_TILE_SIZE / 4;
     public static final String TITLE_STRING = "Champions of Rogue City v0.0.0";
     
     public static final int MAP_DISPLAY_WIDTH = 39;
@@ -74,7 +75,7 @@ public class GUIConstants
     // interface colors
     public static final Color HEALTH_COLOR = DARK_RED;
     public static final Color BLOCK_COLOR = DARK_BLUE;
-    public static final Color OOB_COLOR = DARK_GRAY;
+    public static final Color OOB_COLOR = DARK_GRAY.darker();
     
     
     // chars
@@ -93,4 +94,8 @@ public class GUIConstants
     public static final char BLOCK_75 = (char)9619;
     public static final char BLOCK_50 = (char)9618;
     public static final char BLOCK_25 = (char)9617;
+    
+    // strings
+    public static final String OPEN_DOOR_STRING = "/";
+    public static final String CLOSED_DOOR_STRING = "|";
 }

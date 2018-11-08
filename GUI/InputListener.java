@@ -43,29 +43,39 @@ public class InputListener implements KeyListener, MouseListener, MouseMotionLis
         {
             case KeyEvent.VK_NUMPAD1    :  loc.x -= 1;
                                            loc.y += 1;
+                                           GameObj.getPlayer().getAI().setPendingCoord(loc);
                                            break;
             case KeyEvent.VK_NUMPAD2    :  loc.y += 1;
+                                           GameObj.getPlayer().getAI().setPendingCoord(loc);
                                            break;
             case KeyEvent.VK_NUMPAD3    :  loc.x += 1;
                                            loc.y += 1;
+                                           GameObj.getPlayer().getAI().setPendingCoord(loc);
                                            break;
             case KeyEvent.VK_NUMPAD4    :  loc.x -= 1;
+                                           GameObj.getPlayer().getAI().setPendingCoord(loc);
+                                           break;
+            case KeyEvent.VK_NUMPAD5    :  GameObj.getPlayer().getAI().setPendingCoord(loc);
                                            break;
             case KeyEvent.VK_NUMPAD6    :  loc.x += 1;
+                                           GameObj.getPlayer().getAI().setPendingCoord(loc);
                                            break;
             case KeyEvent.VK_NUMPAD7    :  loc.x -= 1;
                                            loc.y -= 1;
+                                           GameObj.getPlayer().getAI().setPendingCoord(loc);
                                            break;
             case KeyEvent.VK_NUMPAD8    :  loc.y -= 1;
+                                           GameObj.getPlayer().getAI().setPendingCoord(loc);
                                            break;
             case KeyEvent.VK_NUMPAD9    :  loc.x += 1;
                                            loc.y -= 1;
+                                           GameObj.getPlayer().getAI().setPendingCoord(loc);
+                                           break;
+            case KeyEvent.VK_U          :  GameObj.getPlayer().getAI().setPendingAction(Action.USE);
                                            break;
             case KeyEvent.VK_SPACE      :  //MessagePanel.add("mouseLoc = " + mouseLoc.toString());
                                            GameObj.getPlayer().getHealthBlock().setCurHealth(GameObj.getPlayer().getHealthBlock().getCurHealth() - 1);
                                            return;
         }
-        GameObj.getPlayer().getAI().setPendingCoord(loc);
-        GameObj.getPlayer().getAI().setPendingAction(Action.STEP);
     }
 }

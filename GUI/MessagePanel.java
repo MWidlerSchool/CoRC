@@ -11,7 +11,7 @@ import java.util.*;
 public class MessagePanel extends ScreenPanel
 {
     private static Vector<String> stringList = new Vector<String>();
-    private static int maxStrings = 5;
+    private static int maxStrings = 6;
     
     public static void paint(Graphics2D g2d, Font stringFont)
     {

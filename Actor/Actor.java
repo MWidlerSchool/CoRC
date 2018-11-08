@@ -133,6 +133,15 @@ public class Actor extends ScreenObj implements InitObj
     public void applyDamage(int dmg)
     {
         getHealthBlock().applyDamage(dmg);
+        if(getHealthBlock().isDead())
+        {
+            die();
+        }
+    }
+    
+    public void die()
+    {
+        GameObj.remove(this);
     }
     
     /////////////////////////////////////////////////////////
@@ -142,6 +151,15 @@ public class Actor extends ScreenObj implements InitObj
         Actor a = new Actor('e');
         a.setName("Test Enemy");
         a.setAI(new ZombieAI(a));
+        return a;
+    }
+    
+    public static Actor getTestPlayer()
+    {
+        Actor a = new Actor('@');
+        a.setName("Test Player");
+        a.setAI(new PlayerAI(a));
+        a.setHealthBlock(new HealthBlock(true));
         return a;
     }
 }

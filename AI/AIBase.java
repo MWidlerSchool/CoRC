@@ -68,6 +68,12 @@ public class AIBase
                                     break;
             case BASIC_ATTACK   :   attack(self.getBasicAttack(), pendingCoord);
                                     break;
+            case USE            :   use(pendingCoord);
+                                    break;
+            case CONTEXTUAL     :   interpertContext();
+                                    if(hasPlan())
+                                        act();
+                                    break;
         }
         clear();
     }
@@ -93,6 +99,17 @@ public class AIBase
         self.dischargeMove();
     }
     
+    public void use(Coord target)
+    {
+        if(GameObj.getMap().getCell(target) instanceof Usable)
+        {
+            Usable cell = (Usable)GameObj.getMap().getCell(target);
+            cell.use(self);
+        }
+            
+        self.dischargeAction();
+    }
+    
     public void attack(Attack attack, Coord targetLoc)
     {
         Actor target = GameObj.getActorAt(targetLoc);
@@ -105,5 +122,35 @@ public class AIBase
         CombatManager.resolveAttack(self, target, attack);
             
         self.dischargeAction();
+    }
+    
+    public void interpertContext()
+    {
+        Direction dir = Direction.getDirectionTo(self.getLoc(), getPendingCoord());
+        Coord targetLoc = self.getLoc();
+        targetLoc.add(dir.getAsCoord());
+        
+        if(self.getLoc().equals(targetLoc))
+        {
+            setPendingAction(Action.WAIT);
+        }
+        else if(self.canStep(targetLoc))
+        {
+            setPendingAction(Action.STEP);
+        }
+        else if(GameObj.isActorAt(targetLoc))
+        {
+            setPendingAction(Action.BASIC_ATTACK);
+        }
+        else if(GameObj.getMap().getCell(targetLoc) instanceof Usable)
+        {
+            setPendingAction(Action.USE);
+        }
+        
+        // no legal action found
+        if(getPendingAction() == Action.CONTEXTUAL)
+        {
+            clear();
+        }
     }
 }

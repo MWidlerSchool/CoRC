@@ -11,15 +11,15 @@ public class CombatManager
         int attackerStat = attacker.getStat(attack.getAttackerStat());
         int defenderStat = defender.getStat(attack.getDefenderStat());
         int damage = EngineTools.skillCheck(attackerStat, defenderStat);
-        return damage * attack.getBaseDamage();
+        return damage * (attack.getBaseDamage() + attacker.getStat(attack.getAttackerStat()));
     }
     
     public static void resolveAttack(Actor attacker, Actor defender, Attack attack)
     {
         int damage = getAttackDamage(attacker, defender, attack);
         if(attacker == GameObj.getPlayer() || defender == GameObj.getPlayer())
-            MessagePanel.add(String.format("%s %s %s for %d damage!", attacker.getName(), defender.getName(),
-                             attack.getVerb(), damage));
+            MessagePanel.add(String.format("%s %s %s for %d damage!", attacker.getName(), attack.getVerb(), 
+                             defender.getName(), damage));
         defender.applyDamage(damage);
     }
 }   

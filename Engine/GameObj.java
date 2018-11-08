@@ -37,10 +37,8 @@ public class GameObj
         ActorLocManager.init(map.getWidth(), map.getHeight());
         timer = t;
         
-        player = new Actor('@');
+        player = Actor.getTestPlayer();
         player.setLoc(1, 1);
-        player.setName("Test Player");
-        player.setHealthBlock(new HealthBlock(true));
         Actor testEnemy = Actor.getTestEnemy();
         testEnemy.setLoc(3, 6);
         add(player);

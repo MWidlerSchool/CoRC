@@ -28,7 +28,7 @@ public class PlayerInfoPanel extends ScreenPanel
         }
         
         g2d.setFont(stringFont);
-        writeString(g2d, xOrigin, yOrigin, player.getName());
+        writeString(g2d, xOrigin + 1, yOrigin, player.getName());
         
         paintHealthBar(g2d, player, terminalFont);
         paintBlockBar(g2d, player, terminalFont);

@@ -63,6 +63,7 @@ public class GameMap
         m.map[2][2] = new MapCell('=');
         m.map[3][2] = new MapCell('=');
         m.map[4][2] = new MapCell('=');
+        m.map[4][1] = new Door();
         
         for(int x = 5; x < 44; x++)
         for(int y = 5; y < 44; y++)
