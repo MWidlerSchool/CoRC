@@ -4,6 +4,6 @@ public enum Action
 {
     WAIT, STEP, JUMP,
     BASIC_ATTACK, ABILITY, 
-    USE, GRAB, DROP,
+    USE, PICK_UP, DROP,
     CONTEXTUAL;
 }

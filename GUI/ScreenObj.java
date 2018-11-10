@@ -22,23 +22,25 @@ public class ScreenObj
 	public void setBGColor(Color b){bgColor = b;}
 
     
+    public ScreenObj(String s, Color fg, Color bg)
+    {
+        str = s;
+        setFGColor(fg);
+        setBGColor(bg);
+    }
     
     public ScreenObj(String s)
     {
-        str = s;
-        fgColor = Color.WHITE;
-        bgColor = Color.BLACK;
-    }
-    
-    public ScreenObj(char c, Color fg, Color bg)
-    {
-        this(c);
-        setFGColor(fg);
-        setBGColor(bg);
+        this(s, Color.WHITE, Color.BLACK);
     }
     
     public ScreenObj(char c)
     {
         this(Character.toString(c));
+    }
+    
+    public ScreenObj(char c, Color fg, Color bg)
+    {
+        this(Character.toString(c), fg, bg);
     }
 }

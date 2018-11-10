@@ -12,12 +12,11 @@ import java.util.*;
 public class MainPanel extends JPanel
 {
 	private JFrame parentFrame;
-    private ScreenObj[][] mapAreaArray;
-    private Color[][] mapColorArray;
     private Font mapFont = null;
     private Font terminalFont = null;
     private Font stringFont = null;
     private int tileSize = -1;
+    private int displayState = GUIConstants.MAIN_GAME_DISPLAY_STATE;
 
 	public JFrame getParentFrame(){return parentFrame;}
     
@@ -29,9 +28,7 @@ public class MainPanel extends JPanel
         parentFrame.add(this);
         setFocusable(false);
         setBackground(Color.BLACK);
-        mapAreaArray = new ScreenObj[GUIConstants.MAP_DISPLAY_WIDTH][GUIConstants.MAP_DISPLAY_HEIGHT];
-        mapColorArray = new Color[GUIConstants.MAP_DISPLAY_WIDTH][GUIConstants.MAP_DISPLAY_HEIGHT];
-
+        StagePanel.init();
     }
     
     public void setFonts()
@@ -55,71 +52,16 @@ public class MainPanel extends JPanel
             
         Graphics2D g2d = (Graphics2D)g;
         
-        paintStandardBorders(g2d, mapFont);
-        paintMapArea(g2d, mapFont);
-        
-        MessagePanel.paint(g2d, stringFont);
-        PlayerInfoPanel.paint(g2d, stringFont, terminalFont);
+        if(displayState == GUIConstants.MAIN_GAME_DISPLAY_STATE)
+        {
+            paintStandardBorders(g2d, mapFont);
+            MessagePanel.paint(g2d, stringFont);
+            PlayerInfoPanel.paint(g2d, stringFont, terminalFont);
+            StagePanel.paint(g2d, mapFont);
+        }
         
     }
-    
-    private void paintMapArea(Graphics2D g2d, Font mapFont)
-    {        
-        g2d.setFont(mapFont);
-        Actor player = GameObj.getPlayer();
-        GameMap map = GameObj.getMap();
-        if(player == null || map == null)
-            return;
-            
-        int xCorner = player.getLoc().x - (GUIConstants.MAP_DISPLAY_WIDTH / 2);
-        int yCorner = player.getLoc().y - (GUIConstants.MAP_DISPLAY_HEIGHT / 2);
-        
-        // load ground tiles
-        for(int x = 0; x < GUIConstants.MAP_DISPLAY_WIDTH; x++)
-        for(int y = 0; y < GUIConstants.MAP_DISPLAY_HEIGHT; y++)
-        {
-            mapAreaArray[x][y] = map.getCell(x + xCorner, y + yCorner);
-            if(PlayerFoV.canSee(x + xCorner, y + yCorner))
-                mapColorArray[x][y] = map.getCell(x + xCorner, y + yCorner).getFGColor();
-            else
-                mapColorArray[x][y] = GUIConstants.OOB_COLOR;
-        }
-        
-        // load items
-        
-        // load actors
-        Vector<Actor> actorList = GameObj.getActorList();
-        for(int i = 0; i < actorList.size(); i++)
-        {
-            Actor actor = actorList.elementAt(i);
-            if(PlayerFoV.canSee(actor.getLoc()))
-            {
-                mapAreaArray[actor.getLoc().x - xCorner][actor.getLoc().y - yCorner] = actor;
-                mapColorArray[actor.getLoc().x - xCorner][actor.getLoc().y - yCorner] = actor.getFGColor();
-            }
-        }
-        
-        // paint area
-        int xOff = 0;
-        int yOff = 0;
-        for(int x = 0; x < GUIConstants.MAP_DISPLAY_WIDTH; x++)
-        for(int y = 0; y < GUIConstants.MAP_DISPLAY_HEIGHT; y++)
-        {
-            ScreenObj curImage = mapAreaArray[x][y];
-            if(mapColorArray[x][y] == null)
-                g2d.setColor(GUIConstants.OOB_COLOR);
-            else
-                g2d.setColor(mapColorArray[x][y]);
-            // offset for wide tiles
-            xOff = 0;
-            if(g2d.getFontMetrics().stringWidth(curImage.getStr()) > tileSize)
-            {
-                xOff = (g2d.getFontMetrics().stringWidth(curImage.getStr()) - tileSize);
-            }
-            g2d.drawString(curImage.getStr(), ((x + GUIConstants.MAP_DISPLAY_ORIGIN[0]) * tileSize) - xOff, 
-                                     (y + GUIConstants.MAP_DISPLAY_ORIGIN[1] + 1) * tileSize);
-        }
-    }
+
     
     private void paintStandardBorders(Graphics2D g2d, Font mapFont)
     {

@@ -12,7 +12,7 @@ s#i0
 s#k0
 s#j0
 s#l0
-!1230;g
+!1306;g
 %\011Actor%sActor.java
 %\011AI%sAction.java
 %\011Ability%sAttack.java
@@ -32,7 +32,6 @@ s#l0
 %\011Map%sDoor.java
 %\011Map%sMapCell.java
 %\011GUI%sGUIConstants.java
-%\011Actor%sHealthBlock.java
 %\011GUI%sInputListener.java
 %\011%uMyTools%sCoord.java
 %\011GUI%sCoRCFrame.java
@@ -43,12 +42,15 @@ s#l0
 %\011%uMyTools%sMathTools.java
 %\011Actor%sActorConstants.java
 %\011Engine%sInitManager.java
+%\011Actor%sResourceBlock.java
 %\011%uMyTools%sSpiralSearch.java
 %\011%uMyTools%sStraightLine2.java
 %\011Actor%sPlayerFoV.java
+%\011Item%sItem.java
 %\011GUI%sScreenPanel.java
 %\011GUI%sScreenObj.java
 %\011AI%sPlayerAI.java
+%\011Actor%sInventory.java
 %\011%uMyTools%sDirection.java
 %\011GUI%sGUITools.java
 %\011GUI%sPlayerInfoPanel.java
@@ -58,7 +60,8 @@ s#l0
 %\011Map%sFastStarStack.java
 %\011Engine%sGamePreferences.java
 %\011%uMyTools%sFieldOfView.java
-!1230;f
+%\011GUI%sStagePanel.java
+!1306;f
 %\011Actor%sActor.java
 %\011AI%sAction.java
 %\011Ability%sAttack.java
@@ -78,7 +81,6 @@ s#l0
 %\011Map%sDoor.java
 %\011Map%sMapCell.java
 %\011GUI%sGUIConstants.java
-%\011Actor%sHealthBlock.java
 %\011GUI%sInputListener.java
 %\011%uMyTools%sCoord.java
 %\011GUI%sCoRCFrame.java
@@ -89,12 +91,15 @@ s#l0
 %\011%uMyTools%sMathTools.java
 %\011Actor%sActorConstants.java
 %\011Engine%sInitManager.java
+%\011Actor%sResourceBlock.java
 %\011%uMyTools%sSpiralSearch.java
 %\011%uMyTools%sStraightLine2.java
 %\011Actor%sPlayerFoV.java
+%\011Item%sItem.java
 %\011GUI%sScreenPanel.java
 %\011GUI%sScreenObj.java
 %\011AI%sPlayerAI.java
+%\011Actor%sInventory.java
 %\011%uMyTools%sDirection.java
 %\011GUI%sGUITools.java
 %\011GUI%sPlayerInfoPanel.java
@@ -104,5 +109,6 @@ s#l0
 %\011Map%sFastStarStack.java
 %\011Engine%sGamePreferences.java
 %\011%uMyTools%sFieldOfView.java
+%\011GUI%sStagePanel.java
 !36;m
 RunSelect	APPLICATION:GUI.CoRCFrame

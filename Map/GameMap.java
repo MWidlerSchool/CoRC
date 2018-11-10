@@ -1,6 +1,7 @@
 package Map;
 
 import MyTools.*;
+import Item.*;
 
 public class GameMap
 {
@@ -71,6 +72,8 @@ public class GameMap
             if(Math.random() < .25)
                 m.map[x][y] = new MapCell('#');
         }
+        
+        m.map[2][1].setItem(new Item(']'));
         return m;
     }
 }  

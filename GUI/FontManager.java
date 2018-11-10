@@ -48,8 +48,8 @@ public class FontManager
         }
     }
     
-    public static Font getStringFont(int size){return new Font("Komika Text", Font.BOLD, GUITools.pixelsToPoint(size));}
+    public static Font getStringFont(int size){return new Font("Komika Text", Font.BOLD, size * 2);}//GUITools.pixelsToPoint(size));}
     //public static Font getMapFont(int size){return new Font("Dialog", Font.BOLD, GUITools.pixelsToPoint(size));}
     public static Font getMapFont(int size){return new Font("Px437 Wyse700b", Font.PLAIN, GUITools.pixelsToPoint(size));}
-    public static Font getTerminalFont(int size){return new Font("Px437 Wyse700b-2y", Font.PLAIN, GUITools.pixelsToPoint(size));}
+    public static Font getTerminalFont(int size){return new Font("Px437 Wyse700b-2y", Font.PLAIN, size * 2);}//GUITools.pixelsToPoint(size));}
 }

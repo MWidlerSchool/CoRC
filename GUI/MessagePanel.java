@@ -21,7 +21,7 @@ public class MessagePanel extends ScreenPanel
         int reps = Math.min(maxStrings, stringList.size());
         int tileWidth = tileSize;
         int tileHeight = tileSize + tileSize;
-        int yOrigin = tileSize * 2;
+        int yOrigin = tileSize * 3;
         
         for(int i = 0; i < reps; i++)
         {

@@ -70,6 +70,8 @@ public class AIBase
                                     break;
             case USE            :   use(pendingCoord);
                                     break;
+            case PICK_UP        :   pickUp(pendingCoord);
+                                    break;
             case CONTEXTUAL     :   interpertContext();
                                     if(hasPlan())
                                         act();
@@ -122,6 +124,22 @@ public class AIBase
         CombatManager.resolveAttack(self, target, attack);
             
         self.dischargeAction();
+    }
+    
+    public void pickUp(Coord target)
+    {
+        if(GameObj.getMap().getCell(target).hasItem() == false)
+        {
+            MessagePanel.add("Nothing to pick up here . . .");
+            return;
+        }
+        if(self.getInventory().isFull())
+        {
+            MessagePanel.add("Your inventory is already full!");
+            return;
+        }
+        self.getInventory().add(GameObj.getMap().getCell(target).takeItem());
+        self.dischargeMove();
     }
     
     public void interpertContext()

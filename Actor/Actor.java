@@ -6,6 +6,7 @@ import Map.*;
 import AI.*;
 import Engine.*;
 import Ability.*;
+import Item.*;
 import java.util.*;
 
 public class Actor extends ScreenObj implements InitObj
@@ -13,21 +14,23 @@ public class Actor extends ScreenObj implements InitObj
     private AIBase ai;
     private int initCharge = InitObj.FULLY_CHARGED;
     private StatBlock statBlock;
-    private HealthBlock healthBlock;
+    private ResourceBlock resourceBlock;
     private Coord loc;
     private String name;
     private Attack basicAttack;
+    private Inventory inventory;
     
     public AIBase getAI(){return ai;}
     public StatBlock getStatBlock(){return statBlock;}
-    public HealthBlock getHealthBlock(){return healthBlock;}
+    public ResourceBlock getResourceBlock(){return resourceBlock;}
     public Coord getLoc(){return new Coord(loc);}
     public String getName(){return name;}
     public Attack getBasicAttack(){return basicAttack;}
+    public Inventory getInventory(){return inventory;}
     
     public void setAI(AIBase newAI){ai = newAI;}
     public void setStatBlock(StatBlock s){statBlock = s;}
-    public void setHealthBlock(HealthBlock h){healthBlock = h;}
+    public void setResourceBlock(ResourceBlock h){resourceBlock = h;}
     public void setLoc(Coord c){setLoc(c.x, c.y);}
     public void setName(String n){name = n;}
     public void setBasicAttack(Attack a){basicAttack = a;}
@@ -38,10 +41,11 @@ public class Actor extends ScreenObj implements InitObj
         super(c);
         ai = new AIBase(this);
         statBlock = new StatBlock();
-        healthBlock = new HealthBlock();
+        resourceBlock = new ResourceBlock();
         loc = new Coord();
         name = "Unknown Actor";
         basicAttack = new Attack();
+        inventory = new Inventory(this);
     }
     
     public Actor()
@@ -122,18 +126,17 @@ public class Actor extends ScreenObj implements InitObj
     {
         switch(statEnum)
         {
-            case ActorConstants.AGILITY     : return getStatBlock().getAgility();
-            case ActorConstants.STRENGTH    : return getStatBlock().getStrength();
-            case ActorConstants.INTELLECT   : return getStatBlock().getIntellect();
-            case ActorConstants.WILL        : return getStatBlock().getWill();
+            case ActorConstants.BODY        : return getStatBlock().getBody();
+            case ActorConstants.MIND        : return getStatBlock().getMind();
+            case ActorConstants.SPIRIT      : return getStatBlock().getSpirit();
             default                         : return 0;
         }
     }
     
     public void applyDamage(int dmg)
     {
-        getHealthBlock().applyDamage(dmg);
-        if(getHealthBlock().isDead())
+        getResourceBlock().applyDamage(dmg);
+        if(getResourceBlock().isDead())
         {
             die();
         }
@@ -159,7 +162,7 @@ public class Actor extends ScreenObj implements InitObj
         Actor a = new Actor('@');
         a.setName("Test Player");
         a.setAI(new PlayerAI(a));
-        a.setHealthBlock(new HealthBlock(true));
+        a.setResourceBlock(new ResourceBlock(true));
         return a;
     }
 }

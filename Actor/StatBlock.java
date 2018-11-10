@@ -7,28 +7,26 @@ public class StatBlock
 	private int moveSpeed;
 	private int actionSpeed;
 	private int visionRadius;
-	private int agility;
-	private int strength;
-	private int intellect;
-	private int will;
+	private int body;
+	private int mind;
+	private int spirit;
 
 
 	public int getMoveSpeed(){return moveSpeed;}
 	public int getActionSpeed(){return actionSpeed;}
 	public int getVisionRadius(){return visionRadius;}
-	public int getAgility(){return agility;}
-	public int getStrength(){return strength;}
-	public int getIntellect(){return intellect;}
-	public int getWill(){return will;}
+	public int getBody(){return body;}
+	public int getMind(){return mind;}
+	public int getSpirit(){return spirit;}
 
 
 	public void setMoveSpeed(int m){moveSpeed = m;}
 	public void setActionSpeed(int a){actionSpeed = a;}
 	public void setVisionRadius(int v){visionRadius = v;}
-	public void setAgility(int a){agility = a;}
-	public void setStrength(int s){strength = s;}
-	public void setIntellect(int i){intellect = i;}
-	public void setWill(int w){will = w;}
+	public void setBody(int b){body = b;}
+	public void setMind(int m){mind = m;}
+	public void setSpirit(int s){spirit = s;}
+
 
     
     
@@ -37,9 +35,8 @@ public class StatBlock
         moveSpeed = InitObj.NORMAL_SPEED;
         actionSpeed = InitObj.NORMAL_SPEED;
         visionRadius = 12;
-        agility = 3;
-        strength = 3;
-        intellect = 3;
-        will = 3;
+        body = 4;
+        mind = 4;
+        spirit = 4;
     }
 }

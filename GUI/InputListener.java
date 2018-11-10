@@ -73,8 +73,12 @@ public class InputListener implements KeyListener, MouseListener, MouseMotionLis
                                            break;
             case KeyEvent.VK_U          :  GameObj.getPlayer().getAI().setPendingAction(Action.USE);
                                            break;
+            case KeyEvent.VK_G          :  GameObj.getPlayer().getAI().setPendingAction(Action.PICK_UP);
+                                           GameObj.getPlayer().getAI().setPendingCoord(loc);
+                                           break;
             case KeyEvent.VK_SPACE      :  //MessagePanel.add("mouseLoc = " + mouseLoc.toString());
-                                           GameObj.getPlayer().getHealthBlock().setCurHealth(GameObj.getPlayer().getHealthBlock().getCurHealth() - 1);
+                                           //GameObj.getPlayer().getResourceBlock().setCurHealth(GameObj.getPlayer().getResourceBlock().getCurHealth() - 1);
+                                           MessagePanel.add("Player inventory size = " + GameObj.getPlayer().getInventory().size());
                                            return;
         }
     }

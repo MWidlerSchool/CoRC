@@ -27,6 +27,10 @@ public class GUIConstants
     
     public static final int MAX_MESSAGE_SIZE = MESSAGE_DISPLAY_WIDTH;
     
+    // display states
+    public static final int MAIN_GAME_DISPLAY_STATE = 0;
+    public static final int INVENTORY_DISPLAY_STATE = 1;
+    
     
     // colors
     //////////////////////////////////////////////////////////
@@ -73,8 +77,9 @@ public class GUIConstants
 	public static final Color STONE = DARK_GRAY;
     
     // interface colors
-    public static final Color HEALTH_COLOR = DARK_RED;
+    public static final Color HEALTH_COLOR = RED;
     public static final Color BLOCK_COLOR = DARK_BLUE;
+    public static final Color STAMINA_COLOR = GREEN;
     public static final Color OOB_COLOR = DARK_GRAY.darker();
     
     
