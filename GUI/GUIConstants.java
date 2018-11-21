@@ -3,12 +3,14 @@ package GUI;
 import java.awt.*;
 
 
-public class GUIConstants
+public interface GUIConstants
 {
     public static final int[] TILES_PER_SCREEN = {96, 54}; // 16x9
     public static final int DEFAULT_TILE_SIZE = 18;
     public static final int AT_OFFSET = DEFAULT_TILE_SIZE / 4;
     public static final String TITLE_STRING = "Champions of Rogue City v0.0.0";
+    public static final int TICKS_PER_SECOND = 30;
+    public static final int TIMER_SPEED = 1000 / TICKS_PER_SECOND;
     
     public static final int MAP_DISPLAY_WIDTH = 39;
     public static final int PLAYER_INFO_DISPLAY_WIDTH = (TILES_PER_SCREEN[0] - (MAP_DISPLAY_WIDTH + 3)) / 2;
@@ -27,10 +29,19 @@ public class GUIConstants
     
     public static final int MAX_MESSAGE_SIZE = MESSAGE_DISPLAY_WIDTH;
     
-    // display states
-    public static final int MAIN_GAME_DISPLAY_STATE = 0;
-    public static final int INVENTORY_DISPLAY_STATE = 1;
+    public static final int MAX_SCREEN_SHAKE = 5;               // in pixels
+    public static final int STANDARD_COMBAT_SCREEN_SHAKE = 5;   // in ticks
     
+    // display states
+    public static final int MAIN_GAME_DISPLAY = 0;
+    public static final int INVENTORY_DISPLAY = 1;
+    public static final int PREFERENCES_DISPLAY = 2;
+    public static final int HELP_DISPLAY = 3;
+    
+    // fonts
+    public static final String STRING_FONT = "Komika Text";
+    public static final String MAP_FONT = "Px437 Wyse700b";
+    public static final String TERMINAL_FONT = "Px437 Wyse700b-2y";
     
     // colors
     //////////////////////////////////////////////////////////
@@ -81,6 +92,9 @@ public class GUIConstants
     public static final Color BLOCK_COLOR = DARK_BLUE;
     public static final Color STAMINA_COLOR = GREEN;
     public static final Color OOB_COLOR = DARK_GRAY.darker();
+    
+    public static final Color STANDARD_IMPACT_COLOR = DARK_YELLOW;
+    public static final double FLOAT_SPEED = -.1;
     
     
     // chars

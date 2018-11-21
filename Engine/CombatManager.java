@@ -12,6 +12,7 @@ public class CombatManager
         return attack.getBaseDamage() * attacker.getStat(attack.getAttackerStat());
     }
     
+    
     public static void resolveAttack(Actor attacker, Actor defender, Attack attack)
     {
         int damage = getAttackDamage(attacker, attack);
@@ -19,5 +20,11 @@ public class CombatManager
             MessagePanel.add(String.format("%s %s %s for %d damage!", attacker.getName(), attack.getVerb(), 
                              defender.getName(), damage));
         defender.applyDamage(damage);
+        if(GamePreferences.screenShake)
+        {
+            VisualEffectsManager.setScreenShake(GUIConstants.STANDARD_COMBAT_SCREEN_SHAKE);
+            VisualEffectsManager.add(VisualEffectsFactory.getImpact(defender.getLoc()));
+            GameObj.pauseTurns(GUIConstants.STANDARD_COMBAT_SCREEN_SHAKE * 2);
+        }
     }
 }   

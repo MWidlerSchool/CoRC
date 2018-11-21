@@ -12,6 +12,7 @@ public class CoRCTimer implements ActionListener
     private static int turnDelay = 0;
     
     public static void setTurnDelay(int td){turnDelay = td;}
+    public static int getTurnDelay(){return turnDelay;}
     
     public CoRCTimer(int speed)
     {

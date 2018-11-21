@@ -3,10 +3,23 @@ package GUI;
 import java.awt.image.*;
 import java.awt.*;
 import MyTools.*;
+import Engine.*;
 
 
 public class GUITools
 {
+    
+    public static boolean isOnStage(Coord c){return isOnStage(c.x, c.y);}
+    public static boolean isOnStage(int x, int y)
+    {
+        Coord playerLoc = GameObj.getPlayer().getLoc();
+        if(x >= playerLoc.x - (GUIConstants.MAP_DISPLAY_WIDTH / 2) &&
+           x <= playerLoc.x + (GUIConstants.MAP_DISPLAY_WIDTH / 2) + 1&&
+           y >= playerLoc.y - (GUIConstants.MAP_DISPLAY_HEIGHT / 2) &&
+           y <= playerLoc.y + (GUIConstants.MAP_DISPLAY_HEIGHT / 2) + 1)
+            return true;
+        return false;
+    }
 
     
     // returns an array on n ints, ranging from 0 to i, where i = increment

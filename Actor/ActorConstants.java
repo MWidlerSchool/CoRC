@@ -7,6 +7,7 @@ public class ActorConstants
     public static final int DEFAULT_PLAYER_BLOCK = 20;
     public static final int DEFAULT_PLAYER_STAMINA = 100;
     
+    public static final int DEFAULT_BLOCK_RECOVERY_TIME = 5;
     public static final int MAX_INVENTORY_SIZE = 20;
     
     public static final int BODY = 0;

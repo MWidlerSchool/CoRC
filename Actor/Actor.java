@@ -19,6 +19,7 @@ public class Actor extends ScreenObj implements InitObj
     private String name;
     private Attack basicAttack;
     private Inventory inventory;
+    private boolean takingTurn;
     
     public AIBase getAI(){return ai;}
     public StatBlock getStatBlock(){return statBlock;}
@@ -41,11 +42,12 @@ public class Actor extends ScreenObj implements InitObj
         super(c);
         ai = new AIBase(this);
         statBlock = new StatBlock();
-        resourceBlock = new ResourceBlock();
+        resourceBlock = new ResourceBlock(this);
         loc = new Coord();
         name = "Unknown Actor";
         basicAttack = new Attack();
         inventory = new Inventory(this);
+        takingTurn = false;
     }
     
     public Actor()
@@ -104,6 +106,11 @@ public class Actor extends ScreenObj implements InitObj
     
     public void act()
     {
+        if(!takingTurn)
+        {
+            takingTurn = true;
+            beginTurn();
+        }
         ai.plan();
         if(ai.hasPlan())
             ai.act();
@@ -117,6 +124,17 @@ public class Actor extends ScreenObj implements InitObj
     public void dischargeAction()
     {
         discharge(getStatBlock().getActionSpeed());
+    }
+    
+    public void beginTurn()
+    {
+        
+    }
+    
+    public void endTurn()
+    {
+        resourceBlock.endTurn();
+        takingTurn = false;
     }
     
     // stat functions
@@ -162,7 +180,7 @@ public class Actor extends ScreenObj implements InitObj
         Actor a = new Actor('@');
         a.setName("Test Player");
         a.setAI(new PlayerAI(a));
-        a.setResourceBlock(new ResourceBlock(true));
+        a.setResourceBlock(new ResourceBlock(a, true));
         return a;
     }
 }

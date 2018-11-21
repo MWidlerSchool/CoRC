@@ -51,14 +51,16 @@ public class InitManager implements Runnable
             {
                 curObj.act();
                 
-                // turn delay if acted
+                // stuff to do if the object is an actor who finished a turn
                 if(curObj instanceof Actor)
                 {
                     Actor a = (Actor)curObj;
-                    if(a.isCharged() == false && 
-                       PlayerFoV.canSee(a) &&
-                       a != GameObj.getPlayer())
-                        GameObj.pauseTurns(GamePreferences.pauseBetweenTurns);
+                    if(a.isCharged() == false)
+                    {
+                        a.endTurn(); // notify actor its turn is over
+                        if(PlayerFoV.canSee(a) && a != GameObj.getPlayer()) // short delay if not player and is visible
+                            GameObj.pauseTurns(GamePreferences.pauseBetweenTurns);
+                    }
                 }
             }
             

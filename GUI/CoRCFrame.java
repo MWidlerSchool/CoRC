@@ -9,13 +9,14 @@ import Engine.*;
 import Actor.*;
 import MyTools.*;
 
-public class CoRCFrame extends JFrame implements ActionListener
+public class CoRCFrame extends JFrame implements ActionListener, GUIConstants
 {
     private static int tileSize = GUIConstants.DEFAULT_TILE_SIZE;
     private MainPanel mainPanel;
     private InputListener inputListener;
     public InitManager initManager;
     public CoRCTimer timer;
+    public VisualEffectsManager veManager;
     
     public CoRCFrame()
     {
@@ -24,13 +25,13 @@ public class CoRCFrame extends JFrame implements ActionListener
         setResizable(false);
         setVisible(true);   // must come after setResizable and before getInsets()
         Insets insets = this.getInsets();
-        int width = GUIConstants.TILES_PER_SCREEN[0] * tileSize;
-        int height = GUIConstants.TILES_PER_SCREEN[1] * tileSize;
+        int width = TILES_PER_SCREEN[0] * tileSize;
+        int height = TILES_PER_SCREEN[1] * tileSize;
         width += insets.left + insets.right;
         height += insets.bottom + insets.top;
         setSize(tileSize);
         setSize(width, height);
-        setTitle(GUIConstants.TITLE_STRING);
+        setTitle(TITLE_STRING);
         mainPanel = new MainPanel(this);
         FontManager.loadFonts();
         
@@ -38,13 +39,13 @@ public class CoRCFrame extends JFrame implements ActionListener
         addKeyListener(inputListener);
         addMouseListener(inputListener);
         addMouseMotionListener(inputListener);
-        timer = new CoRCTimer(1000 / 30);
+        timer = new CoRCTimer(TIMER_SPEED);
         timer.add(this);
         
         GameObj.init(timer);
         
         initManager = new InitManager();
-        
+        veManager = new VisualEffectsManager();
         
         GameObj.resume();
     }
@@ -62,9 +63,14 @@ public class CoRCFrame extends JFrame implements ActionListener
     
     public void actionPerformed(ActionEvent ae)
     {
-        PlayerFoV.softUpdate();
+        if(MainPanel.getDisplayState() == MAIN_GAME_DISPLAY)
+        {
+            PlayerFoV.softUpdate();
+            veManager.update();
+        }
         mainPanel.repaint();
     }
+    
     
     public static void main(String[] args)
     {

@@ -39,11 +39,15 @@ public class ScreenPanel
     }
 
     
-    // writes a string in terminal tiles
-    public static void writeString(Graphics2D g2d, int xLocTiles, int yLocTiles, String str)
+    // writes a string in terminal tiles assumes tiles are monospaced
+    public static void writeString(Graphics2D g2d, String str, int xLocTiles, int yLocTiles)
     {
-        char[] arr = str.toCharArray();
         int yLoc = (yLocTiles + 1) * tileHeight;
-            g2d.drawString(str, xLocTiles * tileWidth, yLoc);
+        g2d.drawString(str, xLocTiles * tileWidth, yLoc);
+    }
+    
+    public static void writeString(Graphics2D g2d, char[] charArr, int xLocTiles, int yLocTiles)
+    {
+        writeString(g2d, new String(charArr), xLocTiles, yLocTiles);
     }
 }

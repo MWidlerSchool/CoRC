@@ -16,9 +16,12 @@ public class MainPanel extends JPanel
     private Font terminalFont = null;
     private Font stringFont = null;
     private int tileSize = -1;
-    private int displayState = GUIConstants.MAIN_GAME_DISPLAY_STATE;
+    private static int displayState = GUIConstants.MAIN_GAME_DISPLAY;
 
 	public JFrame getParentFrame(){return parentFrame;}
+    public static int getDisplayState(){return displayState;}
+    
+    public static void setDisplayState(int ds){displayState = ds;}
     
 
     public MainPanel(JFrame parent)
@@ -52,12 +55,16 @@ public class MainPanel extends JPanel
             
         Graphics2D g2d = (Graphics2D)g;
         
-        if(displayState == GUIConstants.MAIN_GAME_DISPLAY_STATE)
+        if(displayState == GUIConstants.MAIN_GAME_DISPLAY)
         {
-            paintStandardBorders(g2d, mapFont);
             MessagePanel.paint(g2d, stringFont);
             PlayerInfoPanel.paint(g2d, stringFont, terminalFont);
             StagePanel.paint(g2d, mapFont);
+            paintStandardBorders(g2d, mapFont);
+        }
+        else if(displayState == GUIConstants.INVENTORY_DISPLAY)
+        {
+            InventoryPanel.paint(g2d, stringFont, terminalFont);
         }
         
     }
@@ -133,7 +140,6 @@ public class MainPanel extends JPanel
         g2d.drawString(Character.toString((char)9566),  0, 
                                                        (GUIConstants.PLAYER_INFO_DISPLAY_ORIGIN[1]) * tileSize);
         
-    
     }
     
 }

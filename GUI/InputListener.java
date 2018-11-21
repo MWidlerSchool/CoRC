@@ -11,7 +11,7 @@ import AI.*;
     Forwards key and mouse input to the proper place.
 */
 
-public class InputListener implements KeyListener, MouseListener, MouseMotionListener
+public class InputListener implements KeyListener, MouseListener, MouseMotionListener, GUIConstants
 {
     private static Coord mouseLoc = new Coord();    // in tiles
     
@@ -76,9 +76,17 @@ public class InputListener implements KeyListener, MouseListener, MouseMotionLis
             case KeyEvent.VK_G          :  GameObj.getPlayer().getAI().setPendingAction(Action.PICK_UP);
                                            GameObj.getPlayer().getAI().setPendingCoord(loc);
                                            break;
+            case KeyEvent.VK_I          :  MainPanel.setDisplayState(INVENTORY_DISPLAY);
+                                           break;
+            case KeyEvent.VK_ESCAPE     :  if(MainPanel.getDisplayState() != MAIN_GAME_DISPLAY)
+                                                MainPanel.setDisplayState(MAIN_GAME_DISPLAY);
+                                           break;
             case KeyEvent.VK_SPACE      :  //MessagePanel.add("mouseLoc = " + mouseLoc.toString());
                                            //GameObj.getPlayer().getResourceBlock().setCurHealth(GameObj.getPlayer().getResourceBlock().getCurHealth() - 1);
-                                           MessagePanel.add("Player inventory size = " + GameObj.getPlayer().getInventory().size());
+                                           //MessagePanel.add("Player inventory size = " + GameObj.getPlayer().getInventory().size());
+                                           VisualEffectsManager.setScreenShake(5);
+                                           for(int i = 0; i < 10; i++)
+                                               VisualEffectsManager.add(VisualEffect.getTestEffect(GameObj.getPlayer().getLoc()));
                                            return;
         }
     }

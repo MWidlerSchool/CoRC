@@ -16,7 +16,7 @@ public class PlayerInfoPanel extends ScreenPanel
     private static int xOrigin = GUIConstants.PLAYER_INFO_DISPLAY_ORIGIN[0];
     private static int yOrigin = GUIConstants.PLAYER_INFO_DISPLAY_ORIGIN[1];
     
-    private static String bar[] = {Character.toString((char)9608),
+    private static String bar[] = {Character.toString(' '),
                                    Character.toString((char)9617),
                                    Character.toString((char)9618),
                                    Character.toString((char)9619),
@@ -34,7 +34,7 @@ public class PlayerInfoPanel extends ScreenPanel
         }
         
         g2d.setFont(stringFont);
-        writeString(g2d, xOrigin + 1, yOrigin + 1, player.getName());
+        writeString(g2d, player.getName(), xOrigin + 1, yOrigin + 1);
         
         paintHealthBar(g2d, player, terminalFont, stringFont);
         paintBlockBar(g2d, player, terminalFont, stringFont);
@@ -46,30 +46,33 @@ public class PlayerInfoPanel extends ScreenPanel
     {
         g2d.setFont(stringFont);
         g2d.setColor(GUIConstants.HEALTH_COLOR);
-        writeString(g2d, xOrigin + 1, yOrigin + 4, "Health");
+        writeString(g2d, "Health", xOrigin + 1, yOrigin + 4);
         g2d.setFont(terminalFont);
-        g2d.drawString(Character.toString((char)16), (xOrigin + 10) * getTileWidth(), (yOrigin + 5) * getTileHeight());
-        g2d.drawString(Character.toString((char)17), (xOrigin + 21) * getTileWidth(), (yOrigin + 5) * getTileHeight());
+        writeString(g2d, Character.toString((char)16), xOrigin + 10, yOrigin + 4);
+        writeString(g2d, Character.toString((char)17), xOrigin + 21, yOrigin + 4);
         int[] healthArr = GUITools.getIntensityArray(player.getResourceBlock().getCurHealth(), player.getResourceBlock().getMaxHealth(), 10, 4);
-        
+        String healthBar = new String();
         for(int i = 0; i < healthArr.length; i++)
         {
             if(healthArr[i] == 0)
                 g2d.setColor(GUIConstants.BLACK);
             else
                 g2d.setColor(GUIConstants.HEALTH_COLOR);
-            g2d.drawString(bar[healthArr[i]], (xOrigin + 11 + i) * getTileWidth(), (yOrigin + 5) * getTileHeight());
+            healthBar.concat(bar[healthArr[i]]);
+            writeString(g2d, bar[healthArr[i]], xOrigin + 11 + i, yOrigin + 4);
         }
+                g2d.setColor(GUIConstants.HEALTH_COLOR);
+        writeString(g2d, healthBar, xOrigin + 11, yOrigin + 4);
     }
     
     public static void paintBlockBar(Graphics2D g2d, Actor player, Font terminalFont, Font stringFont)
     {
         g2d.setFont(stringFont);
         g2d.setColor(GUIConstants.BLOCK_COLOR);
-        writeString(g2d, xOrigin + 1, yOrigin + 6, "Block");
+        writeString(g2d, "Block", xOrigin + 1, yOrigin + 6);
         g2d.setFont(terminalFont);
-        g2d.drawString(Character.toString((char)16), (xOrigin + 10) * getTileWidth(), (yOrigin + 7) * getTileHeight());
-        g2d.drawString(Character.toString((char)17), (xOrigin + 21) * getTileWidth(), (yOrigin + 7) * getTileHeight());
+        writeString(g2d, Character.toString((char)16), xOrigin + 10, yOrigin + 6);
+        writeString(g2d, Character.toString((char)17), xOrigin + 21, yOrigin + 6);
         int[] blockArr = GUITools.getIntensityArray(player.getResourceBlock().getCurBlock(), player.getResourceBlock().getMaxBlock(), 10, 4);
         
         for(int i = 0; i < blockArr.length; i++)
@@ -86,7 +89,7 @@ public class PlayerInfoPanel extends ScreenPanel
     {
         g2d.setFont(stringFont);
         g2d.setColor(GUIConstants.STAMINA_COLOR);
-        writeString(g2d, xOrigin + 1, yOrigin + 8, "Stamina");
+        writeString(g2d, "Stamina", xOrigin + 1, yOrigin + 8);
         g2d.setFont(terminalFont);
         g2d.drawString(Character.toString((char)16), (xOrigin + 10) * getTileWidth(), (yOrigin + 9) * getTileHeight());
         g2d.drawString(Character.toString((char)17), (xOrigin + 21) * getTileWidth(), (yOrigin + 9) * getTileHeight());

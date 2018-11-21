@@ -40,6 +40,8 @@ public class StagePanel extends ScreenPanel
         int tileSize = CoRCFrame.getTileSize();
         int xCorner = player.getLoc().x - (GUIConstants.MAP_DISPLAY_WIDTH / 2);
         int yCorner = player.getLoc().y - (GUIConstants.MAP_DISPLAY_HEIGHT / 2);
+        int xShake = VisualEffectsManager.getXShake();
+        int yShake = VisualEffectsManager.getYShake();
         
         // load ground tiles
         for(int x = 0; x < GUIConstants.MAP_DISPLAY_WIDTH; x++)
@@ -91,6 +93,8 @@ public class StagePanel extends ScreenPanel
             // background first
             xPaintOrigin = (x + GUIConstants.MAP_DISPLAY_ORIGIN[0]) * tileSize;
             yPaintOrigin = (y + GUIConstants.MAP_DISPLAY_ORIGIN[1]) * tileSize; // no +1 because it's not a string
+            xPaintOrigin += xShake;
+            yPaintOrigin += yShake;
             g2d.setColor(bgColorArr[x][y]);
             g2d.fillRect(xPaintOrigin, yPaintOrigin, tileSize, tileSize);
         }
@@ -101,6 +105,8 @@ public class StagePanel extends ScreenPanel
             String curString = stringArr[x][y];
             xPaintOrigin = (x + GUIConstants.MAP_DISPLAY_ORIGIN[0]) * tileSize;
             yPaintOrigin = (y + GUIConstants.MAP_DISPLAY_ORIGIN[1] + 1) * tileSize;
+            xPaintOrigin += xShake;
+            yPaintOrigin += yShake;
             if(fgColorArr[x][y] == null)
                 g2d.setColor(GUIConstants.OOB_COLOR);
             else
@@ -111,6 +117,23 @@ public class StagePanel extends ScreenPanel
                 xPaintOrigin -= (g2d.getFontMetrics().stringWidth(stringArr[x][y]) - tileSize);
             }
             g2d.drawString(stringArr[x][y], xPaintOrigin, yPaintOrigin);
+        }
+        
+        // paint visual effects
+        Vector<VisualEffect> veList = VisualEffectsManager.getVEList();
+        VisualEffect ve;
+        for(int i = 0; i < veList.size(); i++)
+        {
+            ve = veList.elementAt(i);
+            if(GUITools.isOnStage(ve.getScreenLoc()))
+            {
+                xPaintOrigin = (ve.getScreenLoc().x + GUIConstants.MAP_DISPLAY_ORIGIN[0] - xCorner) * tileSize;
+                yPaintOrigin = (ve.getScreenLoc().y + GUIConstants.MAP_DISPLAY_ORIGIN[1] + 1 - yCorner) * tileSize;
+                xPaintOrigin += xShake + (int)(ve.getXOffset() * tileSize);
+                yPaintOrigin += yShake + (int)(ve.getYOffset() * tileSize);
+                g2d.setColor(ve.getFGColor());
+                g2d.drawString(ve.getStr(), xPaintOrigin, yPaintOrigin);
+            }
         }
     }
 

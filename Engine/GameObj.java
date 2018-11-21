@@ -76,6 +76,7 @@ public class GameObj
     public static void pauseTurns(int ticks)
     {
         initManager.setTurnPause(true);
-        timer.setTurnDelay(ticks);
+        if(timer.getTurnDelay() < ticks)
+            timer.setTurnDelay(ticks);
     }
 }
