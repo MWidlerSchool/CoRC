@@ -23,8 +23,14 @@ public class FastStarStack
         return returnVal.node;
     }
     
+    public void push(FastStarNode parentNode, Coord location, int distToEnd, int stepDist)
+    {
+        push(new FastStarNode(parentNode, location, distToEnd, stepDist));
+    }
+    
     public void push(FastStarNode newNode)
     {
+        size += 1;
         StackObj newObj = new StackObj(newNode);
         if(head == null)
             head = newObj;
@@ -57,6 +63,23 @@ public class FastStarStack
                 }
             }
         }
+    }
+    
+    // find a given node address in the stack, stopping at a passed distance
+    public FastStarNode find(Coord target, int maxH)
+    {
+        int checks = 0;
+        StackObj curObj = head;
+        while(checks < size)
+        {
+            if(curObj.node.loc.equals(target))  // target found
+                return curObj.node;
+            if(curObj.node.h > maxH)            // max H exceeded
+                return null;
+            curObj = curObj.next;               // iterate
+            checks += 1;
+        }
+        return null; // entire list checked with no matches
     }
     
     private class StackObj

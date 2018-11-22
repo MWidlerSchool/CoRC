@@ -12,7 +12,7 @@ s#i0
 s#k0
 s#j0
 s#l0
-!1490;g
+!1535;g
 %\011AI%sAction.java
 %\011Ability%sAttack.java
 %\011AI%sAIBase.java
@@ -24,12 +24,14 @@ s#l0
 %\011GUI%sInputListener.java
 %\011%uMyTools%sCoord.java
 %\011GUI%sCoRCFrame.java
+%\011AI%sWolfAI.java
 %\011%uMyTools%sVect.java
 %\011Engine%sRNG.java
 %\011Engine%sUsable.java
 %\011%uMyTools%sMathTools.java
 %\011Engine%sInitManager.java
 %\011Actor%sResourceBlock.java
+%\011Map%sFastStar.java
 %\011%uMyTools%sSpiralSearch.java
 %\011%uMyTools%sStraightLine2.java
 %\011GUI%sScreenPanel.java
@@ -67,7 +69,7 @@ s#l0
 %\011Engine%sGamePreferences.java
 %\011GUI%sStagePanel.java
 %\011GUI%sVisualEffectsFactory.java
-!1490;f
+!1535;f
 %\011AI%sAction.java
 %\011Ability%sAttack.java
 %\011AI%sAIBase.java
@@ -79,12 +81,14 @@ s#l0
 %\011GUI%sInputListener.java
 %\011%uMyTools%sCoord.java
 %\011GUI%sCoRCFrame.java
+%\011AI%sWolfAI.java
 %\011%uMyTools%sVect.java
 %\011Engine%sRNG.java
 %\011Engine%sUsable.java
 %\011%uMyTools%sMathTools.java
 %\011Engine%sInitManager.java
 %\011Actor%sResourceBlock.java
+%\011Map%sFastStar.java
 %\011%uMyTools%sSpiralSearch.java
 %\011%uMyTools%sStraightLine2.java
 %\011GUI%sScreenPanel.java

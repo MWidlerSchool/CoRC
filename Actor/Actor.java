@@ -171,7 +171,7 @@ public class Actor extends ScreenObj implements InitObj
     {
         Actor a = new Actor('e');
         a.setName("Test Enemy");
-        a.setAI(new ZombieAI(a));
+        a.setAI(new WolfAI(a));
         return a;
     }
     

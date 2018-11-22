@@ -6,8 +6,9 @@ import MyTools.*;
 import Engine.*;
 import Ability.*;
 import GUI.MessagePanel;
+import java.util.*;
 
-public class AIBase
+public class AIBase implements ActorConstants
 {
     protected Actor self;
     protected Action pendingAction;
@@ -170,5 +171,37 @@ public class AIBase
         {
             clear();
         }
+    }
+    
+    // returns an intelligent path to a destination
+    public Vector<Coord> getPathTo(Coord destination)
+    {
+        Coord selfLoc = self.getLoc();
+        int top =    Math.min(selfLoc.y, destination.y) - AI_PATHING_RADIUS;
+        int bottom = Math.max(selfLoc.y, destination.y) + AI_PATHING_RADIUS;
+        int left =   Math.min(selfLoc.x, destination.x) - AI_PATHING_RADIUS;
+        int right =  Math.max(selfLoc.x, destination.x) + AI_PATHING_RADIUS;
+        int height = bottom - top;
+        int width =  right - left;
+        
+        boolean[][] passArr = new boolean[width][height];
+        for(int x = 0; x < width; x++)
+        for(int y = 0; y < height; y++)
+        {
+            passArr[x][y] = self.canStep(x + left, y + top);
+        }
+        // assume origin and destination are passable
+        passArr[selfLoc.x - left][selfLoc.y - top] = true;
+        passArr[destination.x - left][destination.y - top] = true;
+        
+        Vector<Coord> path = FastStar.getPath(passArr, selfLoc.x - left, selfLoc.y - top, destination.x - left, destination.y - top);
+        
+        // translate to map coords
+        for(Coord loc : path)
+        {
+            loc.x += left;
+            loc.y += top;
+        }
+        return path;
     }
 }

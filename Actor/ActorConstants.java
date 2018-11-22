@@ -1,6 +1,6 @@
 package Actor;
 
-public class ActorConstants
+public interface ActorConstants
 {
     public static final int DEFAULT_ENEMY_HEALTH = 20;
     public static final int DEFAULT_PLAYER_HEALTH = 100;
@@ -13,4 +13,6 @@ public class ActorConstants
     public static final int BODY = 0;
     public static final int MIND = 1;
     public static final int SPIRIT = 2;
+    
+    public static int AI_PATHING_RADIUS = 15;   // determine margin of array passed to FastStar
 }
