@@ -76,7 +76,20 @@ public class InputListener implements KeyListener, MouseListener, MouseMotionLis
             case KeyEvent.VK_G          :  GameObj.getPlayer().getAI().setPendingAction(Action.PICK_UP);
                                            GameObj.getPlayer().getAI().setPendingCoord(loc);
                                            break;
-            case KeyEvent.VK_I          :  MainPanel.setDisplayState(INVENTORY_DISPLAY);
+            case KeyEvent.VK_I          :  if(MainPanel.getDisplayState() != INVENTORY_DISPLAY)
+                                               MainPanel.setDisplayState(INVENTORY_DISPLAY);
+                                           else
+                                               MainPanel.setDisplayState(MAIN_GAME_DISPLAY);
+                                           break;
+            case KeyEvent.VK_H          :  if(MainPanel.getDisplayState() != HELP_DISPLAY)
+                                               MainPanel.setDisplayState(HELP_DISPLAY);
+                                           else
+                                               MainPanel.setDisplayState(MAIN_GAME_DISPLAY);
+                                           break;
+            case KeyEvent.VK_P          :  if(MainPanel.getDisplayState() != PREFERENCE_DISPLAY)
+                                               MainPanel.setDisplayState(PREFERENCE_DISPLAY);
+                                           else
+                                               MainPanel.setDisplayState(MAIN_GAME_DISPLAY);
                                            break;
             case KeyEvent.VK_ESCAPE     :  if(MainPanel.getDisplayState() != MAIN_GAME_DISPLAY)
                                                 MainPanel.setDisplayState(MAIN_GAME_DISPLAY);

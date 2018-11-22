@@ -35,7 +35,7 @@ public interface GUIConstants
     // display states
     public static final int MAIN_GAME_DISPLAY = 0;
     public static final int INVENTORY_DISPLAY = 1;
-    public static final int PREFERENCES_DISPLAY = 2;
+    public static final int PREFERENCE_DISPLAY = 2;
     public static final int HELP_DISPLAY = 3;
     
     // fonts

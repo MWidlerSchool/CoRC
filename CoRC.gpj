@@ -12,7 +12,7 @@ s#i0
 s#k0
 s#j0
 s#l0
-!1436;g
+!1490;g
 %\011AI%sAction.java
 %\011Ability%sAttack.java
 %\011AI%sAIBase.java
@@ -34,13 +34,13 @@ s#l0
 %\011%uMyTools%sStraightLine2.java
 %\011GUI%sScreenPanel.java
 %\011GUI%sVisualEffect.java
+%\011GUI%sPreferencePanel.java
 %\011GUI%sScreenObj.java
 %\011%uMyTools%sDirection.java
 %\011GUI%sGUITools.java
 %\011GUI%sPlayerInfoPanel.java
 %\011GUI%sMessagePanel.java
 %\011Engine%sEngineTools.java
-%\011%uMyTools%sFieldOfView.java
 %\011Actor%sActor.java
 %\011GUI%sInventoryPanel.java
 %\011Engine%sInitObj.java
@@ -50,6 +50,7 @@ s#l0
 %\011Engine%sCombatManager.java
 %\011GUI%sFontManager.java
 %\011Map%sGameMap.java
+%\011%uMyTools%sShadowFoV.java
 %\011Map%sDoor.java
 %\011Map%sMapCell.java
 %\011GUI%sGUIConstants.java
@@ -62,10 +63,11 @@ s#l0
 %\011GUI%sVisualEffectsManager.java
 %\011Map%sFastStarNode.java
 %\011Map%sFastStarStack.java
+%\011GUI%sHelpPanel.java
 %\011Engine%sGamePreferences.java
 %\011GUI%sStagePanel.java
 %\011GUI%sVisualEffectsFactory.java
-!1436;f
+!1490;f
 %\011AI%sAction.java
 %\011Ability%sAttack.java
 %\011AI%sAIBase.java
@@ -87,13 +89,13 @@ s#l0
 %\011%uMyTools%sStraightLine2.java
 %\011GUI%sScreenPanel.java
 %\011GUI%sVisualEffect.java
+%\011GUI%sPreferencePanel.java
 %\011GUI%sScreenObj.java
 %\011%uMyTools%sDirection.java
 %\011GUI%sGUITools.java
 %\011GUI%sPlayerInfoPanel.java
 %\011GUI%sMessagePanel.java
 %\011Engine%sEngineTools.java
-%\011%uMyTools%sFieldOfView.java
 %\011Actor%sActor.java
 %\011GUI%sInventoryPanel.java
 %\011Engine%sInitObj.java
@@ -103,6 +105,7 @@ s#l0
 %\011Engine%sCombatManager.java
 %\011GUI%sFontManager.java
 %\011Map%sGameMap.java
+%\011%uMyTools%sShadowFoV.java
 %\011Map%sDoor.java
 %\011Map%sMapCell.java
 %\011GUI%sGUIConstants.java
@@ -115,6 +118,7 @@ s#l0
 %\011GUI%sVisualEffectsManager.java
 %\011Map%sFastStarNode.java
 %\011Map%sFastStarStack.java
+%\011GUI%sHelpPanel.java
 %\011Engine%sGamePreferences.java
 %\011GUI%sStagePanel.java
 %\011GUI%sVisualEffectsFactory.java

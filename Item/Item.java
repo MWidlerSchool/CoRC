@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class Item extends ScreenObj
 {
-    protected String name;
+    protected String name = "Unknown Item";
     
     public String getName(){return name;}
     

@@ -42,11 +42,10 @@ public class CoRCFrame extends JFrame implements ActionListener, GUIConstants
         timer = new CoRCTimer(TIMER_SPEED);
         timer.add(this);
         
-        GameObj.init(timer);
-        
         initManager = new InitManager();
         veManager = new VisualEffectsManager();
         
+        GameObj.init(timer);
         GameObj.resume();
     }
     

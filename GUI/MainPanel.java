@@ -66,6 +66,14 @@ public class MainPanel extends JPanel
         {
             InventoryPanel.paint(g2d, stringFont, terminalFont);
         }
+        else if(displayState == GUIConstants.HELP_DISPLAY)
+        {
+            HelpPanel.paint(g2d, stringFont, terminalFont);
+        }
+        else if(displayState == GUIConstants.PREFERENCE_DISPLAY)
+        {
+            PreferencePanel.paint(g2d, stringFont, terminalFont);
+        }
         
     }
 

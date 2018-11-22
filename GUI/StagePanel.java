@@ -131,6 +131,7 @@ public class StagePanel extends ScreenPanel
                 yPaintOrigin = (ve.getScreenLoc().y + GUIConstants.MAP_DISPLAY_ORIGIN[1] + 1 - yCorner) * tileSize;
                 xPaintOrigin += xShake + (int)(ve.getXOffset() * tileSize);
                 yPaintOrigin += yShake + (int)(ve.getYOffset() * tileSize);
+                xPaintOrigin -= (g2d.getFontMetrics().stringWidth(ve.getStr()) / 2);
                 g2d.setColor(ve.getFGColor());
                 g2d.drawString(ve.getStr(), xPaintOrigin, yPaintOrigin);
             }

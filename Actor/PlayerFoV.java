@@ -54,7 +54,10 @@ public class PlayerFoV
         {
             transparencyArr[x][y] = map.getCell(x + xVisionOffset, y + yVisionOffset).isTransparent();
         }
-        viewArray = FieldOfView.getFoV(transparencyArr, new Coord(visionRadius, visionRadius));
+        //viewArray = FieldOfView.getFoV(transparencyArr, new Coord(visionRadius, visionRadius));
+        ShadowFoV fov = new ShadowFoV(transparencyArr);
+        fov.calcFoV(visionRadius, visionRadius, visionRadius);
+        viewArray = fov.getArray(0, 0, arrSize, arrSize);
     }
     
     public static boolean canSee(Actor a){return canSee(a.getLoc());}

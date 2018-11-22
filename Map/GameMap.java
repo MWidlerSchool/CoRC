@@ -73,6 +73,18 @@ public class GameMap
                 m.map[x][y] = new MapCell('#');
         }
         
+        for(int x = 5; x < 10; x++)
+        for(int y = 1; y < 5; y++)
+            m.map[x][y] = new MapCell('.');
+        
+        m.map[5][5] = new MapCell('#');
+        m.map[6][5] = new MapCell('#');
+        m.map[7][5] = new MapCell('#');
+        m.map[8][5] = new MapCell('#');
+        m.map[8][4] = new MapCell('#');
+        m.map[8][3] = new MapCell('#');
+        m.map[8][2] = new MapCell('#');
+        
         m.map[2][1].setItem(new Item(']'));
         return m;
     }
