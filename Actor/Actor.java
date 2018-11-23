@@ -85,7 +85,7 @@ public class Actor extends ScreenObj implements InitObj
     public boolean canSee(Coord target)
     {
         // check vision radius
-        if(MathTools.getAngbandMetric(getLoc(), target) > getStatBlock().getVisionRadius())
+        if(MathTools.getDistanceMetric(getLoc(), target) > getStatBlock().getVisionRadius() * getStatBlock().getVisionRadius())
             return false;
         
         // check for obstructions
@@ -128,13 +128,31 @@ public class Actor extends ScreenObj implements InitObj
     
     public void beginTurn()
     {
-        
+        ai.beginTurn();
     }
     
     public void endTurn()
     {
         resourceBlock.endTurn();
         takingTurn = false;
+    }
+    
+    // AI functions
+    ////////////////////////////////////////////////////
+    
+    public boolean isHostile(Actor that)
+    {
+        return getAI().isHostile(that);
+    }
+    
+    public boolean isFriendly(Actor that)
+    {
+        return getAI().isFriendly(that);
+    }
+    
+    public void alert(Actor enemy)
+    {
+        getAI().getMemory().updateEntry(enemy);
     }
     
     // stat functions

@@ -8,6 +8,7 @@ public class PlayerAI extends AIBase
     public PlayerAI(Actor a)
     {
         super(a);
+        setTeam(Team.HERO);
     }
     
     @Override

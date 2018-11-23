@@ -8,23 +8,29 @@ import Ability.*;
 import GUI.MessagePanel;
 import java.util.*;
 
-public class AIBase implements ActorConstants
+public class AIBase implements AIConstants
 {
     protected Actor self;
     protected Action pendingAction;
 	protected Coord pendingCoord;
 	protected int pendingIndex;
+    protected Team team;
+    protected AIMemory memory;
 
 
 	public Action getPendingAction(){return pendingAction;}
 	public Coord getPendingCoord(){return new Coord(pendingCoord);}
 	public int getPendingIndex(){return pendingIndex;}
+    public Team getTeam(){return team;}
+    public AIMemory getMemory(){return memory;}
 
 
 	public void setPendingAction(Action p){pendingAction = p;}
 	public void setPendingCoord(Coord p){setPendingCoord(p.x, p.y);}
 	public void setPendingCoord(int x, int y){pendingCoord = new Coord(x, y);}
 	public void setPendingIndex(int p){pendingIndex = p;}
+    public void setTeam(Team t){team = t;}
+    public void setMemory(AIMemory m){memory = m;}
 
     public AIBase(Actor a)
     {
@@ -32,6 +38,8 @@ public class AIBase implements ActorConstants
         pendingAction = null;
         pendingCoord = null;
         pendingIndex = -1;
+        team = Team.VILLAIN;
+        memory = new AIMemory(self);
     }
     
     public void clear()
@@ -41,11 +49,27 @@ public class AIBase implements ActorConstants
         pendingIndex = -1;
     }
     
+    public void beginTurn()
+    {
+        memory.update(GameObj.getActorList());
+        memory.alertFriends();
+    }
+    
     public boolean hasPlan()
     {
         if(pendingAction == null || pendingCoord == null)
             return false;
         return true;
+    }
+    
+    public boolean isHostile(Actor that)
+    {
+        return getTeam().isHostile(that.getAI().getTeam());
+    }
+    
+    public boolean isFriendly(Actor that)
+    {
+        return getTeam().isFriendly(that.getAI().getTeam());
     }
     
     
@@ -63,7 +87,7 @@ public class AIBase implements ActorConstants
     {
         switch(pendingAction)
         {
-            case STEP           :   step(pendingCoord);
+            case STEP           :   moveTo(pendingCoord);
                                     break;
             case WAIT           :   delay();
                                     break;
@@ -90,16 +114,22 @@ public class AIBase implements ActorConstants
             self.dischargeAction();
     }
     
-    public void step(Coord target)
+    public void stepTowards(Coord target)
     {
         Direction dir = Direction.getDirectionTo(self.getLoc(), target);
         Coord targetLoc = self.getLoc();
         targetLoc.add(dir.getAsCoord());
-        
-        if(self.canStep(targetLoc))
-            self.setLoc(targetLoc);
-            
-        self.dischargeMove();
+        moveTo(targetLoc);
+    }
+    
+    // snaps movement to the selected location, if the actor can step there
+    public void moveTo(Coord target)
+    {
+        if(self.canStep(target))
+        {
+            self.setLoc(target);
+            self.dischargeMove();
+        }
     }
     
     public void use(Coord target)
@@ -203,5 +233,36 @@ public class AIBase implements ActorConstants
             loc.y += top;
         }
         return path;
+    }
+    
+    public Coord getStepTowards(Coord target)
+    {
+        Direction dirTo = Direction.getDirectionTo(self.getLoc(), target);
+        Coord step = self.getLoc();
+        step.add(dirTo.getAsCoord());
+        
+        // keep looking if you can't step
+        if(!self.canStep(step))
+        {
+            Direction option2 = dirTo.getNextClockwise();
+            Direction option3 = dirTo.getNextCounterclockwise();
+            if(RNG.nextBoolean())
+            {
+                option2 = dirTo.getNextCounterclockwise();
+                option3 = dirTo.getNextClockwise();
+            }
+            step = self.getLoc();
+            step.add(option2.getAsCoord());
+            if(self.canStep(step) == false)
+            {
+                step = self.getLoc();
+                step.add(option3.getAsCoord());
+                if(self.canStep(step) == false)
+                {
+                    step = null;
+                }
+            }
+        }
+        return step;
     }
 }

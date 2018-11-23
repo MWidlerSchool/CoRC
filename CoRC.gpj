@@ -12,7 +12,7 @@ s#i0
 s#k0
 s#j0
 s#l0
-!1535;g
+!1584;g
 %\011AI%sAction.java
 %\011Ability%sAttack.java
 %\011AI%sAIBase.java
@@ -41,6 +41,7 @@ s#l0
 %\011%uMyTools%sDirection.java
 %\011GUI%sGUITools.java
 %\011GUI%sPlayerInfoPanel.java
+%\011AI%sAIConstants.java
 %\011GUI%sMessagePanel.java
 %\011Engine%sEngineTools.java
 %\011Actor%sActor.java
@@ -58,6 +59,7 @@ s#l0
 %\011GUI%sGUIConstants.java
 %\011GUI%sMainPanel.java
 %\011Actor%sActorConstants.java
+%\011AI%sAIMemory.java
 %\011Actor%sPlayerFoV.java
 %\011Item%sItem.java
 %\011AI%sPlayerAI.java
@@ -69,7 +71,7 @@ s#l0
 %\011Engine%sGamePreferences.java
 %\011GUI%sStagePanel.java
 %\011GUI%sVisualEffectsFactory.java
-!1535;f
+!1584;f
 %\011AI%sAction.java
 %\011Ability%sAttack.java
 %\011AI%sAIBase.java
@@ -98,6 +100,7 @@ s#l0
 %\011%uMyTools%sDirection.java
 %\011GUI%sGUITools.java
 %\011GUI%sPlayerInfoPanel.java
+%\011AI%sAIConstants.java
 %\011GUI%sMessagePanel.java
 %\011Engine%sEngineTools.java
 %\011Actor%sActor.java
@@ -115,6 +118,7 @@ s#l0
 %\011GUI%sGUIConstants.java
 %\011GUI%sMainPanel.java
 %\011Actor%sActorConstants.java
+%\011AI%sAIMemory.java
 %\011Actor%sPlayerFoV.java
 %\011Item%sItem.java
 %\011AI%sPlayerAI.java

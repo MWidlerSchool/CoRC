@@ -19,12 +19,13 @@ public class WolfAI extends ZombieAI
     @Override
     public void plan()
     {
-        Actor target = GameObj.getPlayer();
+        Actor target = getMemory().getNearestVisibleEnemy();
+        
         // can see target
-        if(self.canSee(target))
+        if(target != null && self.canSee(target))
         {
             // adjacent
-            if(MathTools.getAngbandMetric(self.getLoc(), target.getLoc()) == 1)
+            if(EngineTools.isAdjacent(self.getLoc(), target.getLoc()))
             {
                 setPendingAction(Action.BASIC_ATTACK);
                 setPendingCoord(target.getLoc());
@@ -36,6 +37,31 @@ public class WolfAI extends ZombieAI
                 if(path == null || path.size() == 0)
                 {
                     super.plan();
+                }
+                else
+                {   // set step on path
+                    setPendingAction(Action.STEP);
+                    setPendingCoord(path.elementAt(0));
+                }
+            }
+        }
+        
+        // move towards closest remembered enemy
+        if(hasPlan() == false)
+        {
+            Coord lastRemembered = getMemory().getNearestRememberedEnemyLoc();
+            if(lastRemembered != null)
+            {
+                Vector<Coord> path = getPathTo(lastRemembered);
+                // zombie path if no intelligent path
+                if(path == null || path.size() == 0)
+                {
+                    Coord step = getStepTowards(lastRemembered);
+                    if(step != null)
+                    {
+                        setPendingAction(Action.STEP);
+                        setPendingCoord(step);
+                    }
                 }
                 else
                 {   // set step on path

@@ -45,10 +45,10 @@ public class GameObj
         add(testEnemy);
         testEnemy = Actor.getTestEnemy();
         testEnemy.setLoc(4, 6);
-     //   add(testEnemy);
+        add(testEnemy);
         testEnemy = Actor.getTestEnemy();
         testEnemy.setLoc(5, 6);
-    //    add(testEnemy);
+        add(testEnemy);
     }
     
     public static void add(Actor a)
