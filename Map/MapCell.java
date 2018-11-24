@@ -80,4 +80,9 @@ public class MapCell extends ScreenObj
         item = null;
         return val;
     }
+    
+    public boolean canPlaceItem()
+    {
+        return (!hasItem() && isLowPassable());
+    }
 }

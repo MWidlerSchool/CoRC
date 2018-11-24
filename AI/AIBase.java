@@ -2,6 +2,7 @@ package AI;
 
 import Actor.*;
 import Map.*;
+import Item.*;
 import MyTools.*;
 import Engine.*;
 import Ability.*;
@@ -93,9 +94,14 @@ public class AIBase implements AIConstants
                                     break;
             case BASIC_ATTACK   :   attack(self.getBasicAttack(), pendingCoord);
                                     break;
-            case USE            :   use(pendingCoord);
+            case USE            :   if(pendingIndex == -1)
+                                        useCoord(pendingCoord);
+                                    else
+                                        useInventoryItem(pendingIndex);
                                     break;
             case PICK_UP        :   pickUp(pendingCoord);
+                                    break;
+            case DROP           :   drop(pendingIndex);
                                     break;
             case CONTEXTUAL     :   interpertContext();
                                     if(hasPlan())
@@ -132,7 +138,12 @@ public class AIBase implements AIConstants
         }
     }
     
-    public void use(Coord target)
+    public void useInventoryItem(int inventoryIndex)
+    {
+    
+    }
+    
+    public void useCoord(Coord target)
     {
         if(GameObj.getMap().getCell(target) instanceof Usable)
         {
@@ -170,6 +181,13 @@ public class AIBase implements AIConstants
             return;
         }
         self.getInventory().add(GameObj.getMap().getCell(target).takeItem());
+        self.dischargeMove();
+    }
+    
+    public void drop(int itemIndex)
+    {
+        Item item = self.getInventory().takeItem(itemIndex);
+        GameObj.getMap().dropItem(item, self.getLoc());
         self.dischargeMove();
     }
     

@@ -41,6 +41,67 @@ public class GameMap
         return map[x][y];
     }
     
+    
+    public Item getItem(Coord c){return getItem(c.x, c.y);}
+    public Item getItem(int x, int y)
+    {
+        if(isInBounds(x, y))
+            map[x][y].getItem();
+        return null;
+    }
+    
+    
+    public Item takeItem(Coord c){return takeItem(c.x, c.y);}
+    public Item takeItem(int x, int y)
+    {
+        if(isInBounds(x, y))
+            map[x][y].takeItem();
+        return null;
+    }
+    
+    // this will overwrite any existing item
+    public void setItem(Item i, Coord c){setItem(i, c.x, c.y);}
+    public void setItem(Item i, int x, int y)
+    {
+        if(isInBounds(x, y))
+            map[x][y].setItem(i);
+    }
+    
+    // find nearest place for this
+    public void dropItem(Item item, Coord c){dropItem(item, c.x, c.y);}
+    public void dropItem(Item item, int xLoc, int yLoc)
+    {
+        if(getCell(xLoc, yLoc).canPlaceItem())
+        {
+            setItem(item, xLoc, yLoc);
+        }
+        else
+        {
+            int xOrigin = xLoc - 5;
+            int yOrigin = yLoc - 5;
+            boolean[][] placeMap = new boolean[11][11];
+            for(int x = 0; x < 11; x++)
+            for(int y = 0; y < 11; y++)
+            {
+                placeMap[x][y] = getCell(x + xOrigin, y + yOrigin).isLowPassable();
+            }
+            SpiralSearch search = new SpiralSearch(placeMap, new Coord(5, 5), true);
+            Coord c = null;
+            boolean hasTarget = false;
+            for(int i = 0; i < 36; i++)
+            {
+                c = search.getNext();
+                if(getCell(c.x + xOrigin, c.y + yOrigin).canPlaceItem())
+                {
+                    hasTarget = true;
+                    break;
+                }
+            }
+            if(hasTarget)
+                getCell(c.x + xOrigin, c.y + yOrigin).setItem(item);
+        }
+    }
+    
     public static GameMap getTestMap()
     {
         GameMap m = new GameMap(49, 49, '.');
@@ -85,7 +146,10 @@ public class GameMap
         m.map[8][3] = new MapCell('#');
         m.map[8][2] = new MapCell('#');
         
-        m.map[2][1].setItem(new Item(']'));
+        m.dropItem(new Item(']'), 2, 1);
+        m.dropItem(new Item('}'), 2, 1);
+        m.dropItem(new Item(')'), 2, 1);
+        m.dropItem(new Item('"'), 2, 1);
         return m;
     }
 }  
