@@ -24,6 +24,7 @@ public class CombatManager
         {
             VisualEffectsManager.setScreenShake(GUIConstants.STANDARD_COMBAT_SCREEN_SHAKE);
             VisualEffectsManager.add(VisualEffectsFactory.getImpact(defender.getLoc()));
+            VisualEffectsManager.add(new FadeEffect(defender.getLoc(), GUIConstants.HEALTH_COLOR));
             GameObj.pauseTurns(GUIConstants.STANDARD_COMBAT_SCREEN_SHAKE * 2);
         }
     }

@@ -102,10 +102,15 @@ public class InputListener implements KeyListener, MouseListener, MouseMotionLis
             case KeyEvent.VK_SPACE      :  //MessagePanel.add("mouseLoc = " + mouseLoc.toString());
                                            //GameObj.getPlayer().getResourceBlock().setCurHealth(GameObj.getPlayer().getResourceBlock().getCurHealth() - 1);
                                            //MessagePanel.add("Player inventory size = " + GameObj.getPlayer().getInventory().size());
-                                           VisualEffectsManager.setScreenShake(5);
-                                           for(int i = 0; i < 10; i++)
-                                               VisualEffectsManager.add(VisualEffect.getTestEffect(GameObj.getPlayer().getLoc()));
-                                           return;
+                                           //VisualEffectsManager.setScreenShake(5);
+                                           VisualEffectsManager.add(VisualEffectsFactory.getImpact(GameObj.getPlayer().getLoc()));
+                                           
+                                           Coord lineStart = GameObj.getPlayer().getLoc();
+                                           VisualEffectsManager.add(new FadeEffect(lineStart, Color.BLUE));
+                                           VisualEffectsManager.add(new FadeEffect(new Coord(lineStart.x + 1, lineStart.y), Color.BLUE));
+                                           VisualEffectsManager.add(new FadeEffect(new Coord(lineStart.x + 2, lineStart.y), Color.BLUE));
+                                           VisualEffectsManager.add(new FadeEffect(new Coord(lineStart.x - 1, lineStart.y), Color.BLUE));
+                                           VisualEffectsManager.add(new FadeEffect(new Coord(lineStart.x - 2, lineStart.y), Color.BLUE));
         }
 
     }

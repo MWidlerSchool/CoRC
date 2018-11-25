@@ -50,8 +50,8 @@ public class FontManager implements GUIConstants
         }
     }
     
-    public static Font getStringFont(int size){return new Font(STRING_FONT, Font.BOLD, size * 2);}//GUITools.pixelsToPoint(size));}
+    public static Font getStringFont(int size){return new Font(STRING_FONT, Font.BOLD, (int)(size * 2));}//GUITools.pixelsToPoint(size));}
     //public static Font getMapFont(int size){return new Font("Dialog", Font.BOLD, GUITools.pixelsToPoint(size));}
-    public static Font getMapFont(int size){return new Font(MAP_FONT, Font.PLAIN, GUITools.pixelsToPoint(size));}
-    public static Font getTerminalFont(int size){return new Font(TERMINAL_FONT, Font.PLAIN, size * 2);}//GUITools.pixelsToPoint(size));}
+    public static Font getMapFont(int size){return new Font(MAP_FONT, Font.PLAIN, GUITools.pixelsToPoint((int)(size * .9)));}
+    public static Font getTerminalFont(int size){return new Font(TERMINAL_FONT, Font.PLAIN, (int)(size * 2));}//GUITools.pixelsToPoint(size));}
 }

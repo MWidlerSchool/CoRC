@@ -86,9 +86,10 @@ public class GameMap
                 placeMap[x][y] = getCell(x + xOrigin, y + yOrigin).isLowPassable();
             }
             SpiralSearch search = new SpiralSearch(placeMap, new Coord(5, 5), true);
-            Coord c = null;
+            Coord c = new Coord(0, 0);
             boolean hasTarget = false;
-            for(int i = 0; i < 36; i++)
+            
+            for(int i = 0; i < 100 && c.equals(-1, -1) == false; i++)
             {
                 c = search.getNext();
                 if(getCell(c.x + xOrigin, c.y + yOrigin).canPlaceItem())

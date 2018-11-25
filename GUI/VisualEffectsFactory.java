@@ -25,6 +25,7 @@ public class VisualEffectsFactory implements GUIConstants
             ve.setSpeed(xs, ys);
             ve.setScreenLoc(c);
             ve.setMaxLifespan(TICKS_PER_SECOND / 2);
+            ve.setYOffset(.4);
             list.add(ve);
         }
         return list;
@@ -37,6 +38,8 @@ public class VisualEffectsFactory implements GUIConstants
         ve.setSpeed(0, FLOAT_SPEED);
         ve.setScreenLoc(loc);
         ve.setMaxLifespan(TICKS_PER_SECOND);
+        ve.setBGColor(TRANSPARENT_BLACK);
+        ve.setDrawBGColor(true);
         return ve;
     }
 }

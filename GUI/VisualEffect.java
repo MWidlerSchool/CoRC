@@ -13,6 +13,7 @@ public class VisualEffect extends ScreenObj implements GUIConstants
 	private int curLifespan;    // in ticks
 	private double xSpeed;      // in tiles per tick
 	private double ySpeed;      // in tiles per tick
+    private boolean drawBGColor;    // background is a box behind the string
 
 
 	public Coord getScreenLoc(){return new Coord(screenLoc);}
@@ -22,6 +23,7 @@ public class VisualEffect extends ScreenObj implements GUIConstants
 	public int getCurLifespan(){return curLifespan;}
 	public double getXSpeed(){return xSpeed;}
 	public double getYSpeed(){return ySpeed;}
+    public boolean drawBGColor(){return drawBGColor;}
 
 
 	public void setScreenLoc(Coord s){setScreenLoc(s.x, s.y);}
@@ -33,6 +35,7 @@ public class VisualEffect extends ScreenObj implements GUIConstants
 	public void setXSpeed(double x){xSpeed = x;}
 	public void setYSpeed(double y){ySpeed = y;}
     public void setSpeed(double x, double y){setXSpeed(x); setYSpeed(y);}
+    public void setDrawBGColor(boolean d){drawBGColor = d;}
 
 
     
@@ -46,6 +49,7 @@ public class VisualEffect extends ScreenObj implements GUIConstants
         curLifespan = 0;
         xSpeed = 0.0;
         ySpeed = 0.0;
+        drawBGColor = false;
     }
     public VisualEffect(String s){this(s, Color.WHITE);}
     

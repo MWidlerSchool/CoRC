@@ -12,7 +12,7 @@ s#i0
 s#k0
 s#j0
 s#l0
-!1584;g
+!1610;g
 %\011AI%sAction.java
 %\011Ability%sAttack.java
 %\011AI%sAIBase.java
@@ -62,6 +62,7 @@ s#l0
 %\011AI%sAIMemory.java
 %\011Actor%sPlayerFoV.java
 %\011Item%sItem.java
+%\011GUI%sFadeEffect.java
 %\011AI%sPlayerAI.java
 %\011Actor%sInventory.java
 %\011GUI%sVisualEffectsManager.java
@@ -71,7 +72,7 @@ s#l0
 %\011Engine%sGamePreferences.java
 %\011GUI%sStagePanel.java
 %\011GUI%sVisualEffectsFactory.java
-!1584;f
+!1610;f
 %\011AI%sAction.java
 %\011Ability%sAttack.java
 %\011AI%sAIBase.java
@@ -121,6 +122,7 @@ s#l0
 %\011AI%sAIMemory.java
 %\011Actor%sPlayerFoV.java
 %\011Item%sItem.java
+%\011GUI%sFadeEffect.java
 %\011AI%sPlayerAI.java
 %\011Actor%sInventory.java
 %\011GUI%sVisualEffectsManager.java

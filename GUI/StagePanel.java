@@ -84,6 +84,18 @@ public class StagePanel extends ScreenPanel
             }
         }
         
+        // fade effects
+        Vector<FadeEffect> feList = VisualEffectsManager.getFEList();
+        for(int i = 0; i < feList.size(); i++)
+        {
+            if(PlayerFoV.canSee(feList.elementAt(i).getLoc()))
+            {
+                int xLocation = feList.elementAt(i).getLoc().x - xCorner;
+                int yLocation = feList.elementAt(i).getLoc().y - yCorner;
+                bgColorArr[xLocation][yLocation] = feList.elementAt(i).getColor();
+            }
+        }
+        
         // paint area
         int xPaintOrigin = 0;
         int yPaintOrigin = 0;
@@ -111,11 +123,10 @@ public class StagePanel extends ScreenPanel
                 g2d.setColor(GUIConstants.OOB_COLOR);
             else
                 g2d.setColor(fgColorArr[x][y]);
-            // offset for wide tiles
-            if(g2d.getFontMetrics().stringWidth(stringArr[x][y]) > tileSize)
-            {
-                xPaintOrigin -= (g2d.getFontMetrics().stringWidth(stringArr[x][y]) - tileSize);
-            }
+            // center the tiles
+            xPaintOrigin += (tileSize - g2d.getFontMetrics().stringWidth(stringArr[x][y])) / 2;
+            yPaintOrigin -= (tileSize / 6);
+            // draw 'em
             g2d.drawString(stringArr[x][y], xPaintOrigin, yPaintOrigin);
         }
         
@@ -131,7 +142,17 @@ public class StagePanel extends ScreenPanel
                 yPaintOrigin = (ve.getScreenLoc().y + GUIConstants.MAP_DISPLAY_ORIGIN[1] + 1 - yCorner) * tileSize;
                 xPaintOrigin += xShake + (int)(ve.getXOffset() * tileSize);
                 yPaintOrigin += yShake + (int)(ve.getYOffset() * tileSize);
-                xPaintOrigin -= (g2d.getFontMetrics().stringWidth(ve.getStr()) / 2);
+                xPaintOrigin += (tileSize - g2d.getFontMetrics().stringWidth(ve.getStr())) / 2;
+                yPaintOrigin -= (tileSize / 6);
+                if(ve.drawBGColor())
+                {
+                    g2d.setColor(ve.getBGColor());
+                    int xStart = xPaintOrigin - 2;
+                    int yStart = yPaintOrigin -2 - tileSize;
+                    int xSize = g2d.getFontMetrics().stringWidth(ve.getStr()) + 4;
+                    int ySize = tileSize + 4;
+                    g2d.fillRect(xStart, yStart, xSize, ySize);
+                }
                 g2d.setColor(ve.getFGColor());
                 g2d.drawString(ve.getStr(), xPaintOrigin, yPaintOrigin);
             }

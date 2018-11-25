@@ -76,6 +76,8 @@ public interface GUIConstants
 	public static final Color PURPLE = new Color(200, 0, 200);
 	
 	public static final Color PINK = new Color(255, 192, 203);
+    
+    public static final Color TRANSPARENT_BLACK = new Color(0, 0, 0, 127);
 	
 	// material colors
 	public static final Color GOLD = new Color(255, 215, 0);
@@ -86,6 +88,7 @@ public interface GUIConstants
 	public static final Color LEATHER = new Color(238, 154, 73);
 	public static final Color IVORY = new Color(255, 255, 224);
 	public static final Color STONE = DARK_GRAY;
+    public static final Color DEFAULT_FLOOR_COLOR = VERY_DARK_GRAY.darker();
     
     // interface colors
     public static final Color HEALTH_COLOR = RED;
